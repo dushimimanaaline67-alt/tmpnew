@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="rw">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TMP NEW - Final Premium V4</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body { background-color: #030712; color: #f3f4f6; font-family: 'Segoe UI', system-ui, sans-serif; }
+        .bg-gradient-blue { background: linear-gradient(135deg, #1e40af, #030712); }
+        .text-neon-blue { color: #3b82f6; text-shadow: 0 0 10px rgba(59, 130, 246, 0.5); }
+        .wheel-rotate { transition: transform 4s cubic-bezier(0.25, 1, 0.5, 1); }
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #030712; }
+        ::-webkit-scrollbar-thumb { background: #1e3a8a; border-radius: 10px; }
+    </style>
+</head>
+<body>
+
+    <div id="custom-alert" class="hidden fixed inset-0 bg-black/80 backdrop-blur-md z-[100] flex items-center justify-center p-4">
+        <div class="bg-slate-900 border border-blue-500/40 rounded-2xl max-w-sm w-full p-6 text-center space-y-4 shadow-2xl">
+            <div id="alert-icon-box" class="w-14 h-14 bg-blue-950/60 border border-blue-500/50 rounded-full flex items-center justify-center mx-auto text-blue-400 text-2xl">
+                <i id="alert-icon" class="fa-solid fa-circle-check"></i>
+            </div>
+            <h3 id="alert-title" class="text-lg font-bold text-white">Ubutumwa</h3>
+            <p id="alert-message" class="text-xs text-gray-400 leading-relaxed"></p>
+            <button onclick="closeCustomAlert()" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 rounded-xl text-xs cursor-pointer">Sawa, Ndabyomye</button>
+        </div>
+    </div>
+
+    <div id="video-popup-modal" class="hidden fixed inset-0 bg-black/95 backdrop-blur-md z-[90] flex items-center justify-center p-4">
+        <div class="bg-slate-900 border border-blue-600/50 rounded-2xl max-w-3xl w-full p-4 space-y-4 shadow-2xl relative">
+            <div class="flex justify-between items-center border-b border-gray-800 pb-2">
+                <h3 class="text-xs font-bold text-yellow-400 uppercase tracking-wider"><i class="fa-solid fa-play mr-2"></i> Kina Video Uyirebe Space</h3>
+                <span id="popup-timer-text" class="bg-blue-950 text-blue-400 font-mono font-bold px-3 py-1 rounded-lg text-xs border border-blue-800">Tegereza 7s</span>
+            </div>
+            <div class="w-full aspect-video rounded-xl overflow-hidden bg-black shadow-inner">
+                <iframe id="popup-video-iframe" class="w-full h-full" src="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </div>
+            <p class="text-[11px] text-gray-500 text-center">Iyo amasegonda 7 arangiye, video ihita yifunga ugahabwa inyungu ya 200 FRW.</p>
+        </div>
+    </div>
+
+    <header class="bg-gradient-blue border-b border-blue-900/40 py-6 px-4 text-center relative overflow-hidden">
+        <div class="max-w-7xl mx-auto z-10 relative flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div class="text-left">
+                <h1 class="text-4xl font-extrabold tracking-wider text-white">TMP <span class="text-neon-blue">NEW</span></h1>
+                <p class="text-gray-400 mt-1 text-xs md:text-sm">Platform yegezweho V4 yuzuye neza</p>
+            </div>
+            <button onclick="openAdminModal()" class="bg-slate-900/90 hover:bg-red-950/40 text-red-400 border border-red-900/50 px-5 py-2 rounded-xl text-xs font-bold transition flex items-center gap-2 cursor-pointer">
+                <i class="fa-solid fa-user-shield"></i> Open Admin Panel
+            </button>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto p-4 space-y-8">
+
+        <div id="admin-modal" class="hidden fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+            <div class="bg-slate-950 border border-red-900/50 rounded-2xl max-w-md w-full p-6 shadow-2xl">
+                <div class="text-center space-y-2">
+                    <h3 class="text-lg font-bold text-white"><i class="fa-solid fa-lock text-red-500 mr-2"></i>Admin Verification</h3>
+                    <p class="text-xs text-gray-400">Shyiramo password (20204) gusa.</p>
+                </div>
+                <div class="mt-4 space-y-4">
+                    <input type="password" id="admin-password-input" placeholder="•••••" class="w-full bg-slate-900 border border-gray-800 rounded-lg p-2.5 text-white text-center tracking-widest text-sm focus:outline-none focus:border-red-500">
+                    <div class="flex gap-2">
+                        <button onclick="closeAdminModal()" class="w-1/2 bg-gray-800 text-gray-400 py-2 rounded-lg text-xs cursor-pointer">Funga</button>
+                        <button onclick="verifyAdminPassword()" class="w-1/2 bg-red-600 text-white font-bold py-2 rounded-lg text-xs cursor-pointer">Emeza</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <section id="admin-section" class="hidden bg-slate-900 border-2 border-red-900/30 rounded-2xl p-6 shadow-2xl space-y-6">
+            <div class="flex items-center justify-between border-b border-gray-800 pb-4">
+                <h2 class="text-xl font-black text-red-500 flex items-center gap-2">
+                    <i class="fa-solid fa-chart-pie"></i> TMP NEW - MAIN ADMIN SUPER PANEL
+                </h2>
+                <button onclick="closeAdminPanel()" class="text-xs bg-red-950 text-red-400 px-4 py-2 rounded-xl border border-red-900/60 font-bold hover:bg-red-900 cursor-pointer">Funga Panel</button>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-4">
+                <div class="bg-slate-950 p-4 border border-blue-900/40 rounded-xl space-y-3">
+                    <h3 class="text-xs font-bold text-blue-400 uppercase"><i class="fa-solid fa-link mr-1"></i> 1. Paste Daily Video YouTube Links</h3>
+                    <div>
+                        <label class="block text-[10px] text-gray-500">YouTube Video Link 1</label>
+                        <input type="text" id="admin-vid-link-1" placeholder="https://www.youtube.com/embed/dQw4w9WgXcQ" class="w-full bg-slate-900 border border-gray-800 text-xs text-white p-2 rounded mt-1">
+                    </div>
+                    <div>
+                        <label class="block text-[10px] text-gray-500">YouTube Video Link 2</label>
+                        <input type="text" id="admin-vid-link-2" placeholder="https://www.youtube.com/embed/dQw4w9WgXcQ" class="w-full bg-slate-900 border border-gray-800 text-xs text-white p-2 rounded mt-1">
+                    </div>
+                    <button onclick="updateAdminVideos()" class="w-full bg-blue-600 text-white font-bold text-xs py-2 rounded cursor-pointer">Update Videos</button>
+                </div>
+
+                <div class="bg-slate-950 p-4 border border-purple-900/40 rounded-xl space-y-2">
+                    <h3 class="text-xs font-bold text-purple-400 uppercase"><i class="fa-solid fa-upload mr-1"></i> 2. Upload Custom Animal Shares</h3>
+                    <div class="grid grid-cols-2 gap-2">
+                        <input type="text" id="admin-share-name" placeholder="E.g., Pack Holstein Cow" class="bg-slate-900 border border-gray-800 text-xs text-white p-2 rounded">
+                        <input type="number" id="admin-share-cost" placeholder="Cost (FRW)" class="bg-slate-900 border border-gray-800 text-xs text-white p-2 rounded">
+                        <input type="number" id="admin-share-profit" placeholder="Daily Profit (FRW)" class="bg-slate-900 border border-gray-800 text-xs text-white p-2 rounded">
+                        <input type="text" id="admin-share-img" placeholder="Image URL (Unsplash Link)" class="bg-slate-900 border border-gray-800 text-xs text-white p-2 rounded">
+                    </div>
+                    <textarea id="admin-share-desc" placeholder="English description of what the project invests in..." class="w-full h-12 bg-slate-900 border border-gray-800 text-xs text-white p-2 rounded"></textarea>
+                    <button onclick="uploadNewSharePackage()" class="w-full bg-purple-600 text-white font-bold text-xs py-1.5 rounded cursor-pointer">Upload New Share</button>
+                </div>
+            </div>
+            
+            <div class="overflow-x-auto pt-4">
+                <table class="w-full text-left border-collapse text-[11px]">
+                    <thead>
+                        <tr class="border-b border-gray-800 text-gray-400 bg-slate-950">
+                            <th class="p-3">Umukoresha (User)</th>
+                            <th class="p-3">Contact</th>
+                            <th class="p-3">Konti Reg</th>
+                            <th class="p-3">Deposit Requests</th>
+                            <th class="p-3">Withdraw Requests</th>
+                            <th class="p-3">Earnings Bal</th>
+                            <th class="p-3">Deposit Bal</th>
+                        </tr>
+                    </thead>
+                    <tbody id="admin-users-table" class="divide-y divide-gray-800/50"></tbody>
+                </table>
+            </div>
+        </section>
+
+        <section id="auth-section" class="grid md:grid-cols-2 gap-6">
+            <div class="bg-slate-900 border border-blue-900/30 rounded-2xl p-6 shadow-xl space-y-4">
+                <h3 class="text-lg font-bold text-white flex items-center gap-2"><i class="fa-solid fa-user-plus text-blue-500"></i> Fungura Konti nshya</h3>
+                <form id="register-form" class="space-y-4">
+                    <div>
+                        <label class="block text-xs text-gray-400 mb-1">Amazina Yose</label>
+                        <input type="text" id="reg-name" required class="w-full bg-slate-950 border border-gray-800 rounded-lg p-2.5 text-white text-sm focus:outline-none focus:border-blue-500">
+                    </div>
+                    <div>
+                        <label class="block text-xs text-gray-400 mb-1">Telefone Cyangwa Email</label>
+                        <input type="text" id="reg-contact" required class="w-full bg-slate-950 border border-gray-800 rounded-lg p-2.5 text-white text-sm focus:outline-none focus:border-blue-500">
+                    </div>
+                    <div>
+                        <label class="block text-xs text-gray-400 mb-1">Ijambo ry'Ibanga (Password)</label>
+                        <input type="password" id="reg-pass" required class="w-full bg-slate-950 border border-gray-800 rounded-lg p-2.5 text-white text-sm focus:outline-none focus:border-blue-500">
+                    </div>
+                    <div>
+                        <label class="block text-xs text-yellow-500 mb-1">Amazina ya MoMo yakoresheje utanga 6,000 FRW</label>
+                        <input type="text" id="reg-momo-name" placeholder="Jean Damascene" required class="w-full bg-slate-950 border border-yellow-900/50 rounded-lg p-2.5 text-white text-sm focus:outline-none focus:border-yellow-500">
+                    </div>
+                    <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 rounded-lg transition text-sm shadow-md cursor-pointer">Emeza Kwiyandikisha (6,000 FRW)</button>
+                </form>
+            </div>
+
+            <div class="space-y-4 flex flex-col justify-between">
+                <div class="bg-gradient-to-r from-slate-900 to-blue-950/40 border border-yellow-600/30 rounded-2xl p-5 shadow-lg space-y-3">
+                    <h4 class="text-yellow-500 font-bold text-xs flex items-center gap-2"><i class="fa-solid fa-wallet"></i> BANZA WISHYURE (6,000 FRW):</h4>
+                    <p class="text-[11px] text-gray-400">Kugira ngo konti yawe yemerwe (Approved) nyuma yo kwiyandikisha, kanda:</p>
+                    <div class="bg-slate-950 p-3 rounded-xl border border-gray-800 font-mono text-xs text-gray-300">
+                        Kanda kuri telefone yawe: <strong class="text-green-400 text-sm">*182*8*1*1234567#</strong> -> Shyiramo 6,000 FRW.
+                    </div>
+                </div>
+
+                <div class="bg-slate-900 border border-blue-900/30 rounded-2xl p-5 shadow-lg">
+                    <h3 class="text-md font-bold text-white mb-3 flex items-center gap-2"><i class="fa-solid fa-right-to-bracket text-blue-500"></i> Injira (Login)</h3>
+                    <form id="login-form" class="space-y-3">
+                        <input type="text" id="login-contact" placeholder="Telefone / Email" required class="w-full bg-slate-950 border border-gray-800 rounded-lg p-2 text-white text-xs focus:outline-none focus:border-blue-500">
+                        <input type="password" id="login-pass" placeholder="Password" required class="w-full bg-slate-950 border border-gray-800 rounded-lg p-2 text-white text-xs focus:outline-none focus:border-blue-500">
+                        <button type="submit" class="w-full bg-slate-800 hover:bg-slate-700 text-white font-bold py-2 rounded-lg transition text-xs cursor-pointer">Injira muri Web</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <section id="user-dashboard" class="hidden space-y-6">
+            <div class="bg-blue-900/10 border border-blue-800/30 rounded-2xl p-6 flex flex-col md:flex-row items-center justify-between gap-4">
+                <div>
+                    <h2 class="text-xl font-bold text-white">Murakaza neza, <span id="user-display-name" class="text-blue-400"></span>!</h2>
+                </div>
+                <div class="flex flex-wrap gap-4">
+                    <div class="bg-slate-950 px-4 py-2 rounded-xl border border-gray-800">
+                        <span class="block text-[10px] text-gray-500 uppercase font-bold">Earnings Balance (Inyungu)</span>
+                        <span class="text-md font-extrabold text-green-400" id="user-earnings-bal">0 FRW</span>
+                    </div>
+                    <div class="bg-slate-950 px-4 py-2 rounded-xl border border-gray-800">
+                        <span class="block text-[10px] text-gray-500 uppercase font-bold">Deposit Balance (Ayo gushora)</span>
+                        <span class="text-md font-extrabold text-blue-400" id="user-deposit-bal">0 FRW</span>
+                    </div>
+                    <button onclick="logout()" class="text-gray-500 hover:text-red-400 p-2 text-md transition cursor-pointer"><i class="fa-solid fa-power-off"></i></button>
+                </div>
+            </div>
+
+            <div class="flex gap-2 border-b border-gray-800 overflow-x-auto">
+                <button onclick="switchTab('tasks')" id="btn-tab-tasks" class="tab-btn px-4 py-2 text-xs font-bold border-b-2 border-blue-500 text-blue-400 cursor-pointer">TASKS (40)</button>
+                <button onclick="switchTab('invest')" id="btn-tab-invest" class="tab-btn px-4 py-2 text-xs font-bold text-gray-400 border-b-2 border-transparent cursor-pointer">IMIGABANE (ANIMAL INVEST)</button>
+                <button onclick="switchTab('spin')" id="btn-tab-spin" class="tab-btn px-4 py-2 text-xs font-bold text-gray-400 border-b-2 border-transparent cursor-pointer">SPIN TODAY</button>
+                <button onclick="switchTab('withdraw')" id="btn-tab-withdraw" class="tab-btn px-4 py-2 text-xs font-bold text-gray-400 border-b-2 border-transparent cursor-pointer">WITHDRAW</button>
+            </div>
+
+            <div id="tab-tasks" class="space-y-4">
+                <div id="tasks-grid-container" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4"></div>
+            </div>
+
+            <div id="tab-invest" class="hidden space-y-8">
+                <div class="bg-slate-900 border border-blue-900/30 rounded-2xl p-6 space-y-4">
+                    <h3 class="text-md font-bold text-blue-400"><i class="fa-solid fa-circle-dollar-to-slot mr-2"></i>Ongeraho Amafaranga kuri Deposit Balance</h3>
+                    <div class="flex flex-wrap gap-2">
+                        <button onclick="selectDepositAmount(1000)" class="bg-slate-950 border border-gray-800 hover:border-blue-500 px-3 py-2 rounded-xl text-xs font-mono font-bold transition cursor-pointer">1,000 F</button>
+                        <button onclick="selectDepositAmount(30000)" class="bg-slate-950 border border-gray-800 hover:border-blue-500 px-3 py-2 rounded-xl text-xs font-mono font-bold transition cursor-pointer">30,000 F</button>
+                        <button onclick="selectDepositAmount(50000)" class="bg-slate-950 border border-gray-800 hover:border-blue-500 px-3 py-2 rounded-xl text-xs font-mono font-bold transition cursor-pointer">50,000 F</button>
+                    </div>
+                    <div id="momo-wizard" class="hidden bg-slate-950 border border-yellow-600/30 p-4 rounded-xl space-y-2 text-xs font-mono">
+                        <p>Kanda: <span class="text-white font-bold bg-slate-900 px-2 py-0.5 rounded">*182*8*1*1234567#</span></p>
+                        <p>Amafaranga: <span class="text-green-400 font-bold" id="wizard-amount-display">0</span> FRW</p>
+                        <div class="pt-2 flex gap-2">
+                            <input type="text" id="momo-sender-name" placeholder="Amazina ya MoMo" class="bg-slate-900 border border-gray-800 text-xs rounded-lg p-2 text-white w-full">
+                            <button onclick="submitDepositRequest()" class="bg-green-600 text-white font-bold text-xs px-4 py-2 rounded-lg cursor-pointer">Send</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="space-y-4">
+                    <h3 class="text-md font-bold text-white"><i class="fa-solid fa-cow mr-2 text-amber-500"></i>Urutonde rw'Imigabane y'Amatungo Iriho</h3>
+                    <div id="active-timers-box" class="grid sm:grid-cols-2 gap-2"></div>
+                    <div id="shares-display-grid" class="grid sm:grid-cols-3 gap-6"></div>
+                </div>
+            </div>
+
+            <div id="tab-spin" class="hidden">
+                <div class="max-w-md mx-auto bg-slate-900 border border-gray-800 rounded-2xl p-6 text-center space-y-6 shadow-xl">
+                    <div>
+                        <h3 class="text-lg font-black text-yellow-400"><i class="fa-solid fa-dice mr-2"></i>SPIN TODAY WHEEL</h3>
+                        <p class="text-xs text-gray-400">Gukata rimwe bikutsa <strong class="text-blue-400">500 FRW</strong> kuri Deposit.</p>
+                    </div>
+                    <div class="relative w-64 h-64 mx-auto bg-slate-950 border-4 border-yellow-500 rounded-full flex items-center justify-center overflow-hidden">
+                        <div id="wheel-element" class="absolute inset-0 grid grid-cols-2 grid-rows-2 text-[10px] font-mono text-gray-400 wheel-rotate">
+                            <div class="flex items-center justify-center bg-blue-950/40 border border-gray-900 font-bold text-green-400">55,000 F</div>
+                            <div class="flex items-center justify-center bg-slate-900 border border-gray-900 text-amber-400">Fire 🔥</div>
+                            <div class="flex items-center justify-center bg-slate-900 border border-gray-900 text-red-400">Try Again</div>
+                            <div class="flex items-center justify-center bg-blue-950/40 border border-gray-900 font-bold text-white">1,000 F</div>
+                        </div>
+                        <div class="absolute w-4 h-4 bg-yellow-500 rounded-full z-10"></div>
+                        <div class="absolute -top-1 w-0 h-0 border-l-[8px] border-t-[16px] border-t-yellow-500 z-20"></div>
+                    </div>
+                    <div class="space-y-2">
+                        <button onclick="spinTheWheel()" class="w-full bg-yellow-500 text-slate-950 font-black py-3 rounded-xl text-xs tracking-widest cursor-pointer">KARAGA (SPIN NOW)</button>
+                        <p id="spin-result-text" class="text-xs font-mono font-bold text-yellow-400 animate-pulse"></p>
+                    </div>
+                </div>
+            </div>
+
+            <div id="tab-withdraw" class="hidden">
+                <div class="bg-slate-900 border border-gray-800 rounded-2xl p-6 max-w-xl mx-auto space-y-4 shadow-xl">
+                    <h3 class="text-md font-bold text-green-400 flex items-center gap-2"><i class="fa-solid fa-money-bill-transfer"></i> Kura Amafaranga (Withdrawal)</h3>
+                    <form id="withdraw-form" class="space-y-4 pt-2">
+                        <select id="withdraw-network" class="w-full bg-slate-950 border border-gray-800 rounded-lg p-2 text-xs text-white">
+                            <option value="MTN MoMo">MTN MoMo</option>
+                            <option value="Airtel Money">Airtel Money</option>
+                        </select>
+                        <input type="number" id="withdraw-amount" placeholder="Umubare (Uhereye 15,000 F)" required class="w-full bg-slate-950 border border-gray-800 rounded-lg p-2 text-xs text-white">
+                        <input type="text" id="withdraw-phone" placeholder="078XXXXXXX" required class="w-full bg-slate-950 border border-gray-800 rounded-lg p-2 text-xs text-white">
+                        <input type="text" id="withdraw-account-name" placeholder="Amazina ya Simcard" required class="w-full bg-slate-950 border border-gray-800 rounded-lg p-2 text-xs text-white">
+                        <button type="submit" class="w-full bg-green-600 text-white text-xs font-bold py-2.5 rounded-lg cursor-pointer">Ohereza Ubusabe bwo Gukura</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        function getUsersFromStorage() { return JSON.parse(localStorage.getItem('tmp_new_users')) || []; }
+        function saveUsersToStorage(arr) { localStorage.setItem('tmp_new_users', JSON.stringify(arr)); }
+
+        // Core dynamic arrays from local storage
+        function getAdminVideos() { return JSON.parse(localStorage.getItem('tmp_admin_vids')) || ["https://www.youtube.com/embed/dQw4w9WgXcQ", "https://www.youtube.com/embed/dQw4w9WgXcQ"]; }
+        function getUploadedShares() {
+            let defaultShares = [
+                { packageName: 'Pack Chickens', cost: 1000, profit: 100, img: 'https://images.unsplash.com/photo-1546445317-29f4545e9d53?w=400', desc: 'Invest in organic poultry farming and distribution networks.' },
+                { packageName: 'Pack Meat Bull', cost: 30000, profit: 4000, img: 'https://images.unsplash.com/photo-1570042225831-d98fa7577f1e?w=400', desc: 'Premium feedlot bull farming focused on local commercial slaughterhouses.' }
+            ];
+            return JSON.parse(localStorage.getItem('tmp_uploaded_shares')) || defaultShares;
+        }
+
+        let currentUser = JSON.parse(sessionStorage.getItem('tmp_new_current')) || null;
+        let activeDepositAmount = 0;
+
+        document.addEventListener('DOMContentLoaded', () => { 
+            checkUserSession(); 
+            setInterval(updateCountdownsDisplay, 1000); 
+            // Load admin link states inside fields
+            let vids = getAdminVideos();
+            document.getElementById('admin-vid-link-1').value = vids[0];
+            document.getElementById('admin-vid-link-2').value = vids[1];
+        });
+
+        function showCustomAlert(title, message, isError = false) {
+            document.getElementById('alert-title').innerText = title;
+            document.getElementById('alert-message').innerText = message;
+            document.getElementById('custom-alert').classList.remove('hidden');
+        }
+        function closeCustomAlert() { document.getElementById('custom-alert').classList.add('hidden'); }
+
+        function openAdminModal() { document.getElementById('admin-modal').classList.remove('hidden'); }
+        function closeAdminModal() { document.getElementById('admin-modal').classList.add('hidden'); }
+        function verifyAdminPassword() {
+            if (document.getElementById('admin-password-input').value === '20204') {
+                closeAdminModal(); document.getElementById('admin-section').classList.remove('hidden'); renderAdminTable();
+            }
+        }
+        function closeAdminPanel() { document.getElementById('admin-section').classList.add('hidden'); }
+
+        // Admin functionality to dynamic paste video links
+        function updateAdminVideos() {
+            let l1 = document.getElementById('admin-vid-link-1').value.trim();
+            let l2 = document.getElementById('admin-vid-link-2').value.trim();
+            localStorage.setItem('tmp_admin_vids', JSON.stringify([l1, l2]));
+            showCustomAlert("Yavuguruwe!", "Video links zashyizwemo neza!");
+            buildFortyTasks();
+        }
+
+        // Admin functionality to upload custom user stock shares
+        function uploadNewSharePackage() {
+            let name = document.getElementById('admin-share-name').value.trim();
+            let cost = parseInt(document.getElementById('admin-share-cost').value);
+            let profit = parseInt(document.getElementById('admin-share-profit').value);
+            let img = document.getElementById('admin-share-img').value.trim() || 'https://images.unsplash.com/photo-1516467508483-a7212febe31a?w=400';
+            let desc = document.getElementById('admin-share-desc').value.trim();
+
+            if(!name || !cost || !profit || !desc) { showCustomAlert("Amakosa", "Shyiramo amakuru yose y'umugabane!", true); return; }
+
+            let currentShares = getUploadedShares();
+            currentShares.push({ packageName: name, cost: cost, profit: profit, img: img, desc: desc });
+            localStorage.setItem('tmp_uploaded_shares', JSON.stringify(currentShares));
+            
+            showCustomAlert("Uploaded!", "Umugabane mushya wajyanywe kuri user dashboard.");
+            renderUserSharesStore();
+        }
+
+        document.getElementById('register-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            let currentList = getUsersFromStorage();
+            const contact = document.getElementById('reg-contact').value.trim();
+            if (currentList.find(u => u.contact === contact)) return;
+
+            const newUser = {
+                name: document.getElementById('reg-name').value.trim(), contact: contact,
+                password: document.getElementById('reg-pass').value, momoName: document.getElementById('reg-momo-name').value.trim(),
+                approved: false, earningsBal: 0, depositBal: 0, shares: [], pendingDeposit: null, pendingWithdraw: null
+            };
+            currentList.push(newUser); saveUsersToStorage(currentList);
+            showCustomAlert("Yanditswe!", "Banza wishyure 6k hanyuma utegereze!");
+        });
+
+        document.getElementById('login-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            let currentList = getUsersFromStorage();
+            const u = currentList.find(x => x.contact === document.getElementById('login-contact').value.trim() && x.password === document.getElementById('login-pass').value);
+            if (u && u.approved) { currentUser = u; sessionStorage.setItem('tmp_new_current', JSON.stringify(currentUser)); checkUserSession(); }
+        });
+
+        function checkUserSession() {
+            if (currentUser) {
+                let currentList = getUsersFromStorage();
+                let fresh = currentList.find(x => x.contact === currentUser.contact);
+                if (fresh) { currentUser = fresh; sessionStorage.setItem('tmp_new_current', JSON.stringify(currentUser)); }
+                document.getElementById('auth-section').classList.add('hidden');
+                document.getElementById('user-dashboard').classList.remove('hidden');
+                document.getElementById('user-display-name').innerText = currentUser.name;
+                document.getElementById('user-earnings-bal').innerText = Number(currentUser.earningsBal).toLocaleString() + " FRW";
+                document.getElementById('user-deposit-bal').innerText = Number(currentUser.depositBal).toLocaleString() + " FRW";
+                buildFortyTasks();
+                renderUserSharesStore();
+                renderTimers();
+            }
+        }
+
+        // --- 40 TASKS BLOCK SYSTEM + SHAPE POP-UP ACTION ---
+        function buildFortyTasks() {
+            const container = document.getElementById('tasks-grid-container'); container.innerHTML = '';
+            let adminVids = getAdminVideos();
+
+            for(let i=1; i<=40; i++) {
+                if(i > 2) {
+                    container.innerHTML += `
+                        <div class="bg-slate-950/60 border border-gray-900 p-3 rounded-xl flex flex-col items-center justify-center opacity-40 relative">
+                            <div class="w-8 h-8 bg-slate-900 rounded-full flex items-center justify-center text-gray-500 text-xs font-bold">${i}</div>
+                            <button disabled class="w-full bg-slate-800 text-gray-600 text-[10px] py-1 rounded mt-2 cursor-not-allowed">Hambaye</button>
+                        </div>`;
+                } else {
+                    let videoLinkToUse = (i === 1) ? adminVids[0] : adminVids[1];
+                    container.innerHTML += `
+                        <div class="bg-slate-900 border border-blue-900/30 p-3 rounded-xl flex flex-col items-center justify-center space-y-2">
+                            <div class="w-8 h-8 bg-blue-950 rounded-full flex items-center justify-center text-blue-400 text-xs font-bold">${i}</div>
+                            <p class="text-[10px] text-green-400 font-bold">+200 FRW Feed</p>
+                            <button onclick="triggerVideoPopup('${videoLinkToUse}')" class="w-full bg-blue-600 hover:bg-blue-700 text-white text-[10px] py-1.5 rounded font-bold cursor-pointer">Reba 7s (Shape)</button>
+                        </div>`;
+                }
+            }
+        }
+
+        // Trigger Big Shape Pop-up frame and count 7 seconds
+        function triggerVideoPopup(videoUrl) {
+            const modal = document.getElementById('video-popup-modal');
+            const iframe = document.getElementById('popup-video-iframe');
+            const timerText = document.getElementById('popup-timer-text');
+
+            iframe.src = videoUrl + "?autoplay=1";
+            modal.classList.remove('hidden');
+
+            let count = 7;
+            timerText.innerText = `Tegereza ${count}s`;
+
+            let countdownInterval = setInterval(() => {
+                count--;
+                timerText.innerText = `Tegereza ${count}s`;
+                if(count <= 0) {
+                    clearInterval(countdownInterval);
+                    modal.classList.add('hidden');
+                    iframe.src = ""; // stop playing
+                    addMoneyToEarnings(200);
+                    showCustomAlert("Yarangiye!", "Uhawe +200 FRW kuri balance yawe!");
+                }
+            }, 1000);
+        }
+
+        function addMoneyToEarnings(amount) {
+            let list = getUsersFromStorage(); const idx = list.findIndex(u => u.contact === currentUser.contact);
+            if(idx !== -1) { list[idx].earningsBal += amount; saveUsersToStorage(list); checkUserSession(); }
+        }
+
+        // Render shares from the uploaded library dynamically
+        function renderUserSharesStore() {
+            const container = document.getElementById('shares-display-grid'); container.innerHTML = '';
+            let availableShares = getUploadedShares();
+
+            availableShares.forEach(s => {
+                container.innerHTML += `
+                    <div class="bg-slate-900 border border-gray-800 rounded-xl overflow-hidden shadow-lg flex flex-col justify-between">
+                        <img src="${s.img}" class="w-full h-36 object-cover">
+                        <div class="p-4 space-y-2">
+                            <h4 class="font-bold text-white text-md flex justify-between"><span>${s.packageName}</span> <span class="text-blue-400">${s.cost.toLocaleString()} F</span></h4>
+                            <p class="text-[11px] text-gray-400 italic">"${s.desc}"</p>
+                            <p class="text-xs text-green-400 font-bold">Inyungu: +${s.profit.toLocaleString()} FRW / 24h</p>
+                        </div>
+                        <div class="p-4 pt-0"><button onclick="buySharePackage(${s.cost}, '${s.packageName}', ${s.profit})" class="w-full bg-blue-600 text-white text-xs font-bold py-2 rounded-lg cursor-pointer">Gura Umugabane</button></div>
+                    </div>`;
+            });
+        }
+
+        function buySharePackage(cost, pName, dailyProfit) {
+            let list = getUsersFromStorage(); const idx = list.findIndex(u => u.contact === currentUser.contact);
+            if (idx !== -1 && Number(list[idx].depositBal) >= cost) {
+                list[idx].depositBal -= cost;
+                list[idx].earningsBal += dailyProfit;
+                const nextPayoutTime = Date.now() + (24 * 60 * 60 * 1000);
+                list[idx].shares.push({ packageName: pName, profit: dailyProfit, nextPayout: nextPayoutTime });
+                saveUsersToStorage(list); checkUserSession();
+                showCustomAlert("Uguze neza!", `Uhawe +${dailyProfit} FRW ya mbere! Isaha yatangiye.`);
+            }
+        }
+
+        function renderTimers() {
+            const container = document.getElementById('active-timers-box'); container.innerHTML = '';
+            if(!currentUser.shares) return;
+            currentUser.shares.forEach(s => {
+                container.innerHTML += `
+                    <div class="bg-slate-950 p-2 border border-blue-900 rounded-lg flex justify-between items-center text-xs">
+                        <span class="text-gray-300 font-bold">${s.packageName} (+${s.profit}F)</span>
+                        <span class="text-amber-500 font-mono font-bold" data-countdown="${s.nextPayout}">Calculating...</span>
+                    </div>`;
+            });
+        }
+
+        function updateCountdownsDisplay() {
+            document.querySelectorAll('[data-countdown]').forEach(el => {
+                const target = parseInt(el.getAttribute('data-countdown'));
+                const diff = target - Date.now();
+                if(diff <= 0) { el.innerText = "Available for payout!"; } 
+                else {
+                    const hrs = Math.floor(diff / (1000*60*60));
+                    const mins = Math.floor((diff % (1000*60*60)) / (1000*60));
+                    const secs = Math.floor((diff % (1000*60)) / 1000);
+                    el.innerText = `${hrs}h ${mins}m ${secs}s`;
+                }
+            });
+        }
+
+        function selectDepositAmount(amt) { activeDepositAmount = amt; document.getElementById('momo-wizard').classList.remove('hidden'); document.getElementById('wizard-amount-display').innerText = amt.toLocaleString(); }
+        function submitDepositRequest() {
+            const sender = document.getElementById('momo-sender-name').value.trim(); if(!sender) return;
+            let list = getUsersFromStorage(); const idx = list.findIndex(u => u.contact === currentUser.contact);
+            if(idx !== -1) { list[idx].pendingDeposit = { amount: activeDepositAmount, senderName: sender }; saveUsersToStorage(list); showCustomAlert("Ubusabe!", "Tegereza!"); }
+        }
+
+        function spinTheWheel() {
+            let list = getUsersFromStorage(); const idx = list.findIndex(u => u.contact === currentUser.contact);
+            if(idx !== -1 && Number(list[idx].depositBal) >= 500) {
+                list[idx].depositBal -= 500;
+                const prizes = ["55000 FRW", "Fire Sticker 🔥", "Try Again", "1000 FRW"];
+                const chosen = prizes[Math.floor(Math.random() * prizes.length)];
+                document.getElementById('wheel-element').style.transform = `rotate(${Math.floor(Math.random() * 360) + 1440}deg)`;
+                document.getElementById('spin-result-text').innerText = "Zunguruka...";
+                setTimeout(() => {
+                    document.getElementById('spin-result-text').innerText = `Yego! Watsindiye: ${chosen}`;
+                    if(chosen.includes("55000")) list[idx].earningsBal += 55000;
+                    if(chosen.includes("1000")) list[idx].earningsBal += 1000;
+                    saveUsersToStorage(list); checkUserSession();
+                }, 4000);
+            }
+        }
+
+        function renderAdminTable() {
+            let list = getUsersFromStorage(); const tbody = document.getElementById('admin-users-table'); tbody.innerHTML = '';
+            list.forEach((u, i) => {
+                tbody.innerHTML += `
+                    <tr class="border-b border-gray-800 text-[11px]">
+                        <td class="p-2 font-bold">${u.name}</td>
+                        <td class="p-2">${u.contact}</td>
+                        <td class="p-2">${u.approved ? 'Yes' : `<button onclick="approveReg(${i})" class="bg-blue-600 px-1 rounded text-white">Approve</button>`}</td>
+                        <td class="p-2">${u.pendingDeposit ? `${u.pendingDeposit.amount}F <button onclick="approveDeposit(${i})" class="bg-green-600 px-1 rounded text-white">Ok</button>` : 'Nta'}</td>
+                        <td class="p-2">${u.pendingWithdraw ? `${u.pendingWithdraw.amount}F <button onclick="approveWithdraw(${i})" class="bg-amber-600 px-1 rounded text-white">Pay</button>` : 'Nta'}</td>
+                        <td class="p-2 font-bold text-green-400">${u.earningsBal} F</td>
+                        <td class="p-2 font-bold text-blue-400">${u.depositBal} F</td>
+                    </tr>`;
+            });
+        }
+        function approveReg(i) { let list = getUsersFromStorage(); list[i].approved = true; saveUsersToStorage(list); renderAdminTable(); }
+        function approveDeposit(i) { let list = getUsersFromStorage(); list[i].depositBal += list[i].pendingDeposit.amount; list[i].pendingDeposit = null; saveUsersToStorage(list); renderAdminTable(); }
+        function approveWithdraw(i) { let list = getUsersFromStorage(); list[i].pendingWithdraw = null; saveUsersToStorage(list); renderAdminTable(); }
+
+        function switchTab(tab) {
+            ['tasks', 'invest', 'spin', 'withdraw'].forEach(t => document.getElementById(`tab-${t}`).classList.add('hidden'));
+            document.getElementById(`tab-${tab}`).classList.remove('hidden');
+        }
+        function logout() { sessionStorage.removeItem('tmp_new_current'); currentUser = null; checkUserSession(); }
+    </script>
+</body>
+</html>
