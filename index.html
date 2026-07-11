@@ -3,10 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TMP NEW - Firebase Realtime Fix</title>
-    <!-- Tailwind CSS -->
+    <title>TMP NEW - Official Cloud Engine</title>
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-    <!-- FontAwesome for Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         body { background-color: #020617; color: #f8fafc; font-family: 'Segoe UI', system-ui, sans-serif; }
@@ -18,74 +16,71 @@
 </head>
 <body>
 
-    <!-- ==================== CUSTOM ALERT NOTIFICATION MODAL ==================== -->
     <div id="custom-alert" class="hidden fixed inset-0 bg-black/85 backdrop-blur-md z-[100] flex items-center justify-center p-4">
         <div class="bg-slate-900 border border-blue-500/40 rounded-2xl max-w-sm w-full p-6 text-center space-y-4 shadow-2xl">
             <div id="alert-icon-box" class="w-14 h-14 bg-blue-950/60 border border-blue-500/50 rounded-full flex items-center justify-center mx-auto text-blue-400 text-2xl">
-                <i id="alert-icon" class="fa-solid fa-bell-ring animate-bounce"></i>
+                <i id="alert-icon" class="fa-solid fa-bell animate-bounce"></i>
             </div>
             <h3 id="alert-title" class="text-lg font-bold text-white">Ubutumwa</h3>
             <p id="alert-message" class="text-xs text-gray-400 leading-relaxed"></p>
-            <button onclick="closeCustomAlert()" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 rounded-xl text-xs cursor-pointer">Sawa, Ndabyomye</button>
+            <button onclick="closeCustomAlert()" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 rounded-xl text-xs cursor-pointer">Sawa, Ndabyumvise</button>
         </div>
     </div>
 
-    <!-- ==================== LIVE INTERACTIVE 7-QUESTION SURVEY MODAL ==================== -->
     <div id="survey-questions-modal" class="hidden fixed inset-0 bg-black/90 backdrop-blur-lg z-[95] flex items-center justify-center p-4 overflow-y-auto">
         <div class="bg-slate-900 border border-purple-500/40 rounded-2xl max-w-lg w-full p-6 space-y-4 my-8 max-h-[90vh] overflow-y-auto shadow-2xl">
             <div class="border-b border-gray-800 pb-2 flex justify-between items-center">
                 <h3 class="text-sm font-bold text-purple-400 flex items-center gap-2"><i class="fa-solid fa-clipboard-question"></i> Isesengura: <span id="active-survey-title">Survey</span></h3>
                 <button onclick="closeSurveyModal()" class="text-gray-500 hover:text-white text-xs">Funga</button>
             </div>
-            <form id="survey-questions-form" class="space-y-4 text-xs">
+            <div class="space-y-4 text-xs">
                 <div class="space-y-1">
                     <label class="block text-gray-300 font-medium">1. Ni ikihe kintu ukunda gukora cyane mu gihe cy'akaruhuko?</label>
-                    <select required id="q1" class="w-full bg-slate-950 border border-gray-850 p-2 rounded text-gray-300">
+                    <select id="q1" class="w-full bg-slate-950 border border-gray-800 p-2 rounded text-gray-300">
                         <option value="">Hitamo...</option><option>Kureba sinema</option><option>Gusoma ibitabo</option><option>Gukora ishoramari</option>
                     </select>
                 </div>
                 <div class="space-y-1">
                     <label class="block text-gray-300 font-medium">2. Ni ubuhe buryo bw'ibaruwa cyangwa ubutumwa ukunda kwandika?</label>
-                    <select required id="q2" class="w-full bg-slate-950 border border-gray-850 p-2 rounded text-gray-300">
+                    <select id="q2" class="w-full bg-slate-950 border border-gray-800 p-2 rounded text-gray-300">
                         <option value="">Hitamo...</option><option>Ibaruwa y'akazi (Formal)</option><option>Ubutumwa bugufi (SMS)</option><option>Email z'ubucuruzi</option>
                     </select>
                 </div>
                 <div class="space-y-1">
                     <label class="block text-gray-300 font-medium">3. Ni ryohe bara ryawe ry'amahirwe ukunda?</label>
-                    <select required id="q3" class="w-full bg-slate-950 border border-gray-850 p-2 rounded text-gray-300">
+                    <select id="q3" class="w-full bg-slate-950 border border-gray-800 p-2 rounded text-gray-300">
                         <option value="">Hitamo...</option><option>Ubururu (Blue)</option><option>Umutuku (Red)</option><option>Icyatsi (Green)</option>
                     </select>
                 </div>
                 <div class="space-y-1">
                     <label class="block text-gray-300 font-medium">4. Ni ibihe biryo ukunda mu buzima bwawe?</label>
-                    <select required id="q4" class="w-full bg-slate-950 border border-gray-850 p-2 rounded text-gray-300">
+                    <select id="q4" class="w-full bg-slate-950 border border-gray-800 p-2 rounded text-gray-300">
                         <option value="">Hitamo...</option><option>Ibirayi n'inyama</option><option>Umuceri n'ifi</option><option>Imboga n'imbuto</option>
                     </select>
                 </div>
                 <div class="space-y-1">
                     <label class="block text-gray-300 font-medium">5. Ni iyihe siporo ukurikirana cyane?</label>
-                    <select required id="q5" class="w-full bg-slate-950 border border-gray-850 p-2 rounded text-gray-300">
+                    <select id="q5" class="w-full bg-slate-950 border border-gray-800 p-2 rounded text-gray-300">
                         <option value="">Hitamo...</option><option>Umupira w'amaguru (Football)</option><option>Basketball</option><option>Koga (Swimming)</option>
                     </select>
                 </div>
                 <div class="space-y-1">
                     <label class="block text-gray-300 font-medium">6. Ni ubuhe bwoko bwa telefone ukoresha ubu?</label>
-                     <select required id="q6" class="w-full bg-slate-950 border border-gray-850 p-2 rounded text-gray-300">
+                    <select id="q6" class="w-full bg-slate-950 border border-gray-800 p-2 rounded text-gray-300">
                         <option value="">Hitamo...</option><option>Android Smartphone</option><option>iPhone (iOS)</option><option>Telefone isanzwe (Aka-katiranya)</option>
                     </select>
                 </div>
                 <div class="space-y-1">
                     <label class="block text-gray-300 font-medium">7. Intego yawe nshya mu gushora imigabane ni iyihe?</label>
-                    <select required id="q7" class="w-full bg-slate-950 border border-gray-850 p-2 rounded text-gray-300">
+                    <select id="q7" class="w-full bg-slate-950 border border-gray-800 p-2 rounded text-gray-300">
                         <option value="">Hitamo...</option><option>Kuzamura ubukungu</option><option>Kugura imitungo</option><option>Kwishyura amashuri</option>
                     </select>
                 </div>
-                <button type="submit" class="w-full bg-purple-600 hover:bg-purple-700 text-white font-bold py-2.5 rounded-xl transition cursor-pointer">Emeza Isesengura (Save & Get +500 FRW)</button>
-            </form>
+                <button type="button" onclick="window.submitSurveyResponse()" class="w-full bg-purple-600 hover:bg-purple-700 text-white font-bold py-2.5 rounded-xl transition cursor-pointer">Emeza Isesengura (Save & Get +500 FRW)</button>
+            </div>
         </div>
     </div>
 
-    <!-- ==================== YOUTUBE VIDEO FIT MODAL ==================== -->
     <div id="video-popup-modal" class="hidden fixed inset-0 bg-black/95 backdrop-blur-2xl z-[90] flex items-center justify-center p-3">
         <div class="bg-slate-950 border border-blue-600/40 rounded-2xl max-w-2xl w-full p-3 space-y-3 shadow-2xl overflow-hidden">
             <div class="flex justify-between items-center border-b border-gray-800 pb-2 px-1">
@@ -99,12 +94,11 @@
         </div>
     </div>
 
-    <!-- HEADER -->
     <header class="bg-gradient-blue border-b border-blue-900/40 py-6 px-4 text-center relative">
         <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
             <div class="text-left">
                 <h1 class="text-4xl font-black tracking-wider text-white">TMP <span class="text-neon-blue">NEW</span></h1>
-                <p class="text-gray-400 mt-1 text-xs">Firebase Live Cloud Engine V8</p>
+                <p class="text-gray-400 mt-1 text-xs">Firebase Cloud Live REST Engine V10</p>
             </div>
             <button onclick="openAdminModal()" class="bg-slate-950 hover:bg-red-950/40 text-red-400 border border-red-950/60 px-5 py-2 rounded-xl text-xs font-bold transition flex items-center gap-2 cursor-pointer">
                 <i class="fa-solid fa-user-shield"></i> Open Admin Panel
@@ -114,7 +108,6 @@
 
     <main class="max-w-7xl mx-auto p-4 space-y-8">
 
-        <!-- ADMIN PASSWORD VERIFICATION -->
         <div id="admin-modal" class="hidden fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
             <div class="bg-slate-950 border border-red-900/50 rounded-2xl max-w-md w-full p-6 shadow-2xl">
                 <div class="text-center space-y-2">
@@ -131,7 +124,6 @@
             </div>
         </div>
 
-        <!-- ==================== MAIN ADMIN CONTROL PANEL ==================== -->
         <section id="admin-section" class="hidden bg-slate-900 border-2 border-red-900/30 rounded-2xl p-6 shadow-2xl space-y-6">
             <div class="flex items-center justify-between border-b border-gray-800 pb-4">
                 <h2 class="text-xl font-black text-red-500 flex items-center gap-2"><i class="fa-solid fa-chart-line"></i> TMP CLOUD REALTIME PANEL</h2>
@@ -157,7 +149,6 @@
                 </div>
             </div>
             
-            <!-- ADMIN USERS TABLE DATABASE DISPLAY -->
             <div class="overflow-x-auto pt-2">
                 <table class="w-full text-left border-collapse text-[11px]">
                     <thead>
@@ -166,8 +157,7 @@
                             <th class="p-3">Contact</th>
                             <th class="p-3">Password</th>
                             <th class="p-3">Registration MoMo</th>
-                            <th class="p-3">Deposit Requests (Pending)</th>
-                            <th class="p-3">Withdrawal</th>
+                            <th class="p-3">Deposit Requests</th>
                             <th class="p-3">Earnings Bal</th>
                             <th class="p-3">Deposit Bal</th>
                         </tr>
@@ -177,9 +167,7 @@
             </div>
         </section>
 
-        <!-- ==================== AUTHENTICATION (REG & LOGIN) ==================== -->
         <section id="auth-section" class="grid md:grid-cols-2 gap-6">
-            <!-- Kwiyandikisha -->
             <div class="bg-slate-900 border border-blue-900/30 rounded-2xl p-6 shadow-xl space-y-4">
                 <h3 class="text-lg font-bold text-white flex items-center gap-2"><i class="fa-solid fa-user-plus text-blue-500"></i> Fungura Konti nshya</h3>
                 
@@ -191,29 +179,27 @@
                     </div>
                 </div>
 
-                <form id="register-form" class="space-y-4">
-                    <input type="text" id="reg-name" placeholder="Amazina Yose" required class="w-full bg-slate-950 border border-gray-800 rounded-lg p-2.5 text-white text-sm">
-                    <input type="text" id="reg-contact" placeholder="Telefone / Email" required class="w-full bg-slate-950 border border-gray-800 rounded-lg p-2.5 text-white text-sm">
-                    <input type="password" id="reg-pass" placeholder="Password" required class="w-full bg-slate-950 border border-gray-800 rounded-lg p-2.5 text-white text-sm">
-                    <input type="text" id="reg-momo-name" placeholder="Amazina ya MoMo yohereje 6,000 FRW" required class="w-full bg-slate-950 border border-yellow-600/30 rounded-lg p-2.5 text-white text-sm">
-                    <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 rounded-lg text-sm cursor-pointer">Emeza Kwiyandikisha (6,000 FRW)</button>
-                </form>
+                <div class="space-y-4">
+                    <input type="text" id="reg-name" placeholder="Amazina Yose" class="w-full bg-slate-950 border border-gray-800 rounded-lg p-2.5 text-white text-sm focus:outline-none">
+                    <input type="text" id="reg-contact" placeholder="Telefone / Email" class="w-full bg-slate-950 border border-gray-800 rounded-lg p-2.5 text-white text-sm focus:outline-none">
+                    <input type="password" id="reg-pass" placeholder="Password" class="w-full bg-slate-950 border border-gray-800 rounded-lg p-2.5 text-white text-sm focus:outline-none">
+                    <input type="text" id="reg-momo-name" placeholder="Amazina ya MoMo yohereje 6,000 FRW" class="w-full bg-slate-950 border border-yellow-600/30 rounded-lg p-2.5 text-white text-sm focus:outline-none">
+                    <button type="button" onclick="window.submitRegistrationForm()" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 rounded-lg text-sm cursor-pointer transition">Emeza Kwiyandikisha (6,000 FRW)</button>
+                </div>
             </div>
 
-            <!-- Login Box -->
             <div class="space-y-4 flex flex-col justify-start">
                 <div class="bg-slate-900 border border-blue-900/30 rounded-2xl p-6 shadow-lg">
                     <h3 class="text-md font-bold text-white mb-3 flex items-center gap-2"><i class="fa-solid fa-right-to-bracket text-blue-500"></i> Injira (Login)</h3>
-                    <form id="login-form" class="space-y-3">
-                        <input type="text" id="login-contact" placeholder="Telefone / Email" required class="w-full bg-slate-950 border border-gray-800 rounded-lg p-2.5 text-white text-xs">
-                        <input type="password" id="login-pass" placeholder="Password" required class="w-full bg-slate-950 border border-gray-800 rounded-lg p-2.5 text-white text-xs">
-                        <button type="submit" class="w-full bg-slate-800 hover:bg-slate-700 text-white font-bold py-2.5 rounded-lg text-xs cursor-pointer">Injira Ako Kanya</button>
-                    </form>
+                    <div class="space-y-3">
+                        <input type="text" id="login-contact" placeholder="Telefone / Email" class="w-full bg-slate-950 border border-gray-800 rounded-lg p-2.5 text-white text-xs focus:outline-none">
+                        <input type="password" id="login-pass" placeholder="Password" class="w-full bg-slate-950 border border-gray-800 rounded-lg p-2.5 text-white text-xs focus:outline-none">
+                        <button type="button" onclick="window.submitLoginForm()" class="w-full bg-slate-800 hover:bg-slate-700 text-white font-bold py-2.5 rounded-lg text-xs cursor-pointer">Injira Ako Kanya</button>
+                    </div>
                 </div>
             </div>
         </section>
 
-        <!-- ==================== USER DASHBOARD ==================== -->
         <section id="user-dashboard" class="hidden space-y-6">
             <div class="bg-slate-900 border border-gray-800 rounded-2xl p-6 flex flex-col md:flex-row items-center justify-between gap-4">
                 <div><h2 class="text-xl font-bold text-white">Murakaza neza, <span id="user-display-name" class="text-blue-400"></span>!</h2></div>
@@ -224,7 +210,6 @@
                 </div>
             </div>
 
-            <!-- TABS -->
             <div class="flex gap-2 border-b border-gray-800 overflow-x-auto">
                 <button onclick="window.switchTab('tasks')" id="btn-tab-tasks" class="tab-btn px-4 py-2 text-xs font-bold border-b-2 border-blue-500 text-blue-400 cursor-pointer">TASKS (40)</button>
                 <button onclick="window.switchTab('surveys')" id="btn-tab-surveys" class="tab-btn px-4 py-2 text-xs font-bold text-gray-400 border-b-2 border-transparent cursor-pointer">SURVEYS (30)</button>
@@ -232,12 +217,10 @@
                 <button onclick="window.switchTab('withdraw')" id="btn-tab-withdraw" class="tab-btn px-4 py-2 text-xs font-bold text-gray-400 border-b-2 border-transparent cursor-pointer">WITHDRAW</button>
             </div>
 
-            <!-- TAB 1: VIDEOS -->
             <div id="tab-tasks" class="space-y-4">
                 <div id="tasks-grid-container" class="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-5 gap-4"></div>
             </div>
 
-            <!-- TAB 2: SURVEYS -->
             <div id="tab-surveys" class="hidden space-y-4">
                 <div class="bg-slate-900 border border-purple-900/30 p-4 rounded-xl">
                     <h3 class="text-sm font-bold text-purple-400"><i class="fa-solid fa-square-poll-vertical mr-2"></i> Daily Survey Engine (Kora 1 ku munsi, Ibibazo 7)</h3>
@@ -246,7 +229,6 @@
                 <div id="surveys-grid-container" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4"></div>
             </div>
 
-            <!-- TAB 3: INVESTMENTS WITH CUSTOM DEPOSIT INPUT -->
             <div id="tab-invest" class="hidden space-y-8">
                 <div class="bg-slate-900 border border-blue-900/30 rounded-2xl p-6 space-y-4">
                     <h3 class="text-md font-bold text-blue-400"><i class="fa-solid fa-circle-dollar-to-slot mr-2"></i> Custom Deposit Amount Mode</h3>
@@ -278,121 +260,136 @@
                 </div>
             </div>
 
-            <!-- TAB 4: WITHDRAWAL -->
             <div id="tab-withdraw" class="hidden">
                 <div class="bg-slate-900 border border-gray-800 rounded-2xl p-6 max-w-xl mx-auto space-y-4">
                     <h3 class="text-md font-bold text-green-400 flex items-center gap-2"><i class="fa-solid fa-money-bill-transfer"></i> Kura Amafaranga</h3>
-                    <form id="withdraw-form" class="space-y-4">
-                        <input type="number" id="withdraw-amount" placeholder="Umubare (Uhereye 15,000 F)" required class="w-full bg-slate-950 border border-gray-800 rounded-lg p-2 text-xs text-white">
-                        <input type="text" id="withdraw-phone" placeholder="078XXXXXXX" required class="w-full bg-slate-950 border border-gray-800 rounded-lg p-2 text-xs text-white">
-                        <input type="text" id="withdraw-account-name" placeholder="Amazina ya Simcard" required class="w-full bg-slate-950 border border-gray-800 rounded-lg p-2 text-xs text-white">
-                        <button type="submit" class="w-full bg-green-600 text-white text-xs font-bold py-2 rounded-lg cursor-pointer">Ohereza</button>
-                    </form>
+                    <div class="space-y-4">
+                        <input type="number" id="withdraw-amount" placeholder="Umubare (Uhereye 15,000 F)" class="w-full bg-slate-950 border border-gray-800 rounded-lg p-2 text-xs text-white">
+                        <input type="text" id="withdraw-phone" placeholder="078XXXXXXX" class="w-full bg-slate-950 border border-gray-800 rounded-lg p-2 text-xs text-white">
+                        <input type="text" id="withdraw-account-name" placeholder="Amazina ya Simcard" class="w-full bg-slate-950 border border-gray-800 rounded-lg p-2 text-xs text-white">
+                        <button type="button" onclick="window.submitWithdrawalForm()" class="w-full bg-green-600 text-white text-xs font-bold py-2 rounded-lg cursor-pointer">Ohereza</button>
+                    </div>
                 </div>
             </div>
         </section>
     </main>
 
-    <!-- Firebase App n'izindi mbuga mu buryo bu kora hose -->
-    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
-
     <script>
-        const firebaseConfig = {
-            apiKey: "AIzaSyATdI2IbvP_3eY0y0yQIhs2CtjZjyP3H0g",
-            authDomain: "kailoimage.firebaseapp.com",
-            projectId: "kailoimage",
-            storageBucket: "kailoimage.firebasestorage.app",
-            messagingSenderId: "737217663699",
-            appId: "1:737217663699:web:5e5f979b91736fbe9d3a26",
-            measurementId: "G-CZN5E1TLBJ"
-        };
-
-        // Gufungura urubuga rwa Firebase live
-        firebase.initializeApp(firebaseConfig);
-        const db = firebase.database();
+        // FIREBASE REST API ENDPOINT Y'URUGERO - YIZUYE KANDI IKORA HOSE 100%
+        const FIREBASE_URL = "https://kailoimage-default-rtdb.firebaseio.com/";
 
         let currentUser = null;
         let activeCustomDeposit = 0;
         let globalUsersArray = [];
 
-        // Kureba live data ziva kuri Firebase
-        db.ref('users').on('value', (snapshot) => {
-            const data = snapshot.val();
-            globalUsersArray = [];
-            if(data) {
-                for(let key in data) {
-                    globalUsersArray.push({ id: key, ...data[key] });
+        // Haza fetch y'amakuru ava kuri Cloud Firebase ako kanya
+        async function fetchAllData() {
+            try {
+                const resUsers = await fetch(`${FIREBASE_URL}users.json`);
+                const dataUsers = await resUsers.json();
+                globalUsersArray = [];
+                if(dataUsers) {
+                    for(let key in dataUsers) {
+                        if(dataUsers[key]) globalUsersArray.push({ id: key, ...dataUsers[key] });
+                    }
                 }
-            }
-            
-            let sessionUser = localStorage.getItem('tmp_firebase_uid');
-            if(sessionUser) {
-                let found = globalUsersArray.find(x => x.contact === sessionUser);
-                if(found) { currentUser = found; }
-            }
-            checkUserSession();
-            renderAdminTable();
-        });
 
-        // Kureba video links zikora live
-        db.ref('settings/videos').on('value', (snapshot) => {
-            let vids = snapshot.val() || ["https://www.youtube.com/embed/dQw4w9WgXcQ", "https://www.youtube.com/embed/dQw4w9WgXcQ"];
-            document.getElementById('admin-vid-link-1').value = vids[0];
-            document.getElementById('admin-vid-link-2').value = vids[1];
-            window.cachedVideos = vids;
-            if(currentUser) buildFortyTasks();
-        });
+                const resVids = await fetch(`${FIREBASE_URL}settings/videos.json`);
+                const dataVids = await resVids.json();
+                window.cachedVideos = dataVids || ["https://www.youtube.com/embed/dQw4w9WgXcQ", "https://www.youtube.com/embed/dQw4w9WgXcQ"];
+                document.getElementById('admin-vid-link-1').value = window.cachedVideos[0] || '';
+                document.getElementById('admin-vid-link-2').value = window.cachedVideos[1] || '';
 
-        // Kureba imigabane iri online
-        db.ref('shares').on('value', (snapshot) => {
-            let data = snapshot.val();
-            let sharesList = [];
-            if(data) {
-                for(let k in data) sharesList.push(data[k]);
-            } else {
-                sharesList = [
-                    { packageName: 'Pack Small Farm', cost: 500, profit: 50, img: 'https://images.unsplash.com/photo-1516467508483-a7212febe31a?w=400' },
-                    { packageName: 'Pack Chickens', cost: 1000, profit: 100, img: 'https://images.unsplash.com/photo-1546445317-29f4545e9d53?w=400' }
-                ];
+                const resShares = await fetch(`${FIREBASE_URL}shares.json`);
+                const dataShares = await resShares.json();
+                let sharesList = [];
+                if(dataShares) {
+                    for(let k in dataShares) sharesList.push(dataShares[k]);
+                } else {
+                    sharesList = [
+                        { packageName: 'Pack Small Farm', cost: 500, profit: 50, img: 'https://images.unsplash.com/photo-1516467508483-a7212febe31a?w=400' },
+                        { packageName: 'Pack Chickens', cost: 1000, profit: 100, img: 'https://images.unsplash.com/photo-1546445317-29f4545e9d53?w=400' }
+                    ];
+                }
+                window.cachedShares = sharesList;
+
+                let sessionUser = localStorage.getItem('tmp_firebase_uid');
+                if(sessionUser) {
+                    let found = globalUsersArray.find(x => x.contact === sessionUser);
+                    if(found) { currentUser = found; }
+                }
+
+                checkUserSession();
+                renderAdminTable();
+
+            } catch (err) {
+                console.error("Firebase Sync Error: ", err);
             }
-            window.cachedShares = sharesList;
-            if(currentUser) renderUserSharesStore();
-        });
+        }
 
-        // Kwiyandikisha
-        document.getElementById('register-form').addEventListener('submit', function(e) {
-            e.preventDefault();
+        setInterval(fetchAllData, 3000);
+        window.onload = fetchAllData;
+
+        // KWIYANDIKISHA - YAVUGURUWE KANDI YEMEZA AKO KANYA KURI DATABASES
+        window.submitRegistrationForm = async function() {
+            let name = document.getElementById('reg-name').value.trim();
             let contact = document.getElementById('reg-contact').value.trim();
-            
+            let pass = document.getElementById('reg-pass').value;
+            let momoName = document.getElementById('reg-momo-name').value.trim();
+
+            if(!name || !contact || !pass || !momoName) {
+                showCustomAlert("Amakosa", "Nyamuneka uzuza amakuru yose neza!");
+                return;
+            }
+
             let alreadyExists = globalUsersArray.find(u => u.contact === contact);
-            if(alreadyExists) { showCustomAlert("Amakosa", "Iyi telefone isanzwe ifite konti."); return; }
+            if(alreadyExists) { 
+                showCustomAlert("Amakosa", "Iyi telefone isanzwe ifite konti. Injira!"); 
+                return; 
+            }
 
             let cleanKey = contact.replace(/[^a-zA-Z0-9]/g, "_");
             let newUser = {
-                name: document.getElementById('reg-name').value.trim(),
+                name: name,
                 contact: contact,
-                password: document.getElementById('reg-pass').value,
-                momoName: document.getElementById('reg-momo-name').value.trim(),
-                approved: false, earningsBal: 0, depositBal: 0,
-                pendingDeposit: null, pendingWithdraw: null, lastSurveyDay: ""
+                password: pass,
+                momoName: momoName,
+                approved: false, 
+                earningsBal: 0, 
+                depositBal: 0,
+                pendingDeposit: null, 
+                pendingWithdraw: null, 
+                lastSurveyDay: ""
             };
 
-            db.ref('users/' + cleanKey).set(newUser, function(error) {
-                if(error) {
-                    showCustomAlert("Amakosa", "Birenze ubushozi bwa network! Koresha Live Server.");
-                } else {
-                    showCustomAlert("Byagenze neza!", "Ubusabe bwageze kuri Admin Panel! Banza wishyure 6,000 FRW.");
-                    document.getElementById('register-form').reset();
-                }
-            });
-        });
+            try {
+                const response = await fetch(`${FIREBASE_URL}users/${cleanKey}.json`, {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(newUser)
+                });
 
-        // Login Account
-        document.getElementById('login-form').addEventListener('submit', function(e) {
-            e.preventDefault();
+                if(response.ok) {
+                    showCustomAlert("Byagenze neza!", "Ubusabe bwageze kuri Admin Panel! Banza wishyure 6,000 FRW kuri Simcard.");
+                    document.getElementById('reg-name').value = "";
+                    document.getElementById('reg-contact').value = "";
+                    document.getElementById('reg-pass').value = "";
+                    document.getElementById('reg-momo-name').value = "";
+                    fetchAllData();
+                } else {
+                    showCustomAlert("Amakosa", "Database yanze kwakira amakuru!");
+                }
+            } catch (error) {
+                showCustomAlert("Amakosa", "Nta internet ifatika uhafite!");
+            }
+        }
+
+        // LOGIN ENGINE
+        window.submitLoginForm = function() {
             let contact = document.getElementById('login-contact').value.trim();
             let pass = document.getElementById('login-pass').value;
+
+            if(!contact || !pass) { showCustomAlert("Amakosa", "Uzuza telefone na password!"); return; }
 
             let u = globalUsersArray.find(x => x.contact === contact && x.password === pass);
             if(!u) { showCustomAlert("Amakosa", "Telefone cyangwa password ntabwo ari zo!"); return; }
@@ -401,7 +398,7 @@
             currentUser = u;
             localStorage.setItem('tmp_firebase_uid', currentUser.contact);
             checkUserSession();
-        });
+        }
 
         function checkUserSession() {
             if (currentUser) {
@@ -430,7 +427,7 @@
                     container.innerHTML += `
                         <div class="bg-slate-950/60 border border-gray-950 p-3 rounded-xl flex flex-col items-center justify-center opacity-30">
                             <div class="text-xs text-gray-500">${i}</div>
-                            <button onclick="showCustomAlert('Iz\\'uyu munsi zashize', 'Garuka ejo.')" class="w-full bg-slate-900 text-[9px] py-1 rounded mt-2 text-gray-400">Reba</button>
+                            <button type="button" onclick="showCustomAlert('Iz\\'uyu munsi zashize', 'Garuka ejo.')" class="w-full bg-slate-900 text-[9px] py-1 rounded mt-2 text-gray-400">Reba</button>
                         </div>`;
                 } else {
                     let targetLink = (i === 1) ? vids[0] : vids[1];
@@ -438,7 +435,7 @@
                         <div class="bg-slate-900 border border-blue-900/40 p-3 rounded-xl flex flex-col items-center justify-center space-y-1">
                             <div class="w-6 h-6 bg-blue-950 text-blue-400 rounded-full flex items-center justify-center text-[10px] font-bold">${i}</div>
                             <p class="text-[9px] text-green-400 font-bold">+200 FRW</p>
-                            <button onclick="window.openVideoFitModal('${targetLink}')" class="w-full bg-blue-600 hover:bg-blue-700 text-white text-[9px] py-1 rounded font-bold cursor-pointer">Fungura</button>
+                            <button type="button" onclick="window.openVideoFitModal('${targetLink}')" class="w-full bg-blue-600 hover:bg-blue-700 text-white text-[9px] py-1 rounded font-bold cursor-pointer">Fungura</button>
                         </div>`;
                 }
             }
@@ -454,7 +451,7 @@
             document.getElementById('video-popup-modal').classList.remove('hidden');
 
             let count = 7;
-            let timer = setInterval(() => {
+            let timer = setInterval(async () => {
                 count--;
                 document.getElementById('popup-timer-text').innerText = `Tegereza ${count}s`;
                 if(count <= 0) {
@@ -463,10 +460,15 @@
                     wrapper.innerHTML = "";
                     
                     let cleanKey = currentUser.contact.replace(/[^a-zA-Z0-9]/g, "_");
-                    db.ref('users/' + cleanKey).update({
-                        earningsBal: currentUser.earningsBal + 200
+                    let updatedAmt = currentUser.earningsBal + 200;
+
+                    await fetch(`${FIREBASE_URL}users/${cleanKey}/earningsBal.json`, {
+                        method: 'PUT',
+                        body: JSON.stringify(updatedAmt)
                     });
+
                     showCustomAlert("Yarangiye!", "Uhawe +200 FRW kuri Database!");
+                    fetchAllData();
                 }
             }, 1000);
         }
@@ -484,7 +486,7 @@
                             <span class="text-[10px] text-green-400 font-bold">+500 FRW</span>
                         </div>
                         <p class="text-[11px] text-gray-400">Isesengura ririmo ibibazo 7 bijyanye n'ibyari bikurimo.</p>
-                        <button onclick="window.openSurveyModal('${i}')" ${isLocked ? 'disabled class="w-full bg-gray-800 text-gray-500 text-xs py-1.5 rounded-lg"' : 'class="w-full bg-purple-600 text-white text-xs font-bold py-1.5 rounded-lg"'}>
+                        <button type="button" onclick="window.openSurveyModal('${i}')" ${isLocked ? 'disabled class="w-full bg-gray-800 text-gray-500 text-xs py-1.5 rounded-lg"' : 'class="w-full bg-purple-600 text-white text-xs font-bold py-1.5 rounded-lg"'}>
                             ${isLocked ? 'Tegereza Ejo' : 'Tangira Survey'}
                         </button>
                     </div>`;
@@ -496,20 +498,18 @@
             document.getElementById('survey-questions-modal').classList.remove('hidden');
         }
 
-        document.getElementById('survey-questions-form').addEventListener('submit', function(e) {
-            e.preventDefault();
+        window.submitSurveyResponse = async function() {
             let currentDayString = new Date().toDateString();
             let cleanKey = currentUser.contact.replace(/[^a-zA-Z0-9]/g, "_");
+            let updatedAmt = currentUser.earningsBal + 500;
 
-            db.ref('users/' + cleanKey).update({
-                earningsBal: currentUser.earningsBal + 500,
-                lastSurveyDay: currentDayString
-            });
+            await fetch(`${FIREBASE_URL}users/${cleanKey}/earningsBal.json`, { method: 'PUT', body: JSON.stringify(updatedAmt) });
+            await fetch(`${FIREBASE_URL}users/${cleanKey}/lastSurveyDay.json`, { method: 'PUT', body: JSON.stringify(currentDayString) });
             
             document.getElementById('survey-questions-modal').classList.add('hidden');
-            document.getElementById('survey-questions-form').reset();
             showCustomAlert("Byagenze neza!", "Urangije isesengura (+500 FRW)!");
-        });
+            fetchAllData();
+        }
 
         window.triggerCustomDepositWizard = function() {
             let val = parseInt(document.getElementById('custom-deposit-input').value);
@@ -519,18 +519,22 @@
             document.getElementById('momo-wizard').classList.remove('hidden');
         }
 
-        window.submitDepositRequest = function() {
+        window.submitDepositRequest = async function() {
             let name = document.getElementById('momo-sender-name').value.trim();
             if(!name) { showCustomAlert("Amakosa", "Andika amazina ya MoMo!"); return; }
             
             let cleanKey = currentUser.contact.replace(/[^a-zA-Z0-9]/g, "_");
-            db.ref('users/' + cleanKey).update({
-                pendingDeposit: { amount: activeCustomDeposit, senderName: name }
-            }).then(() => {
-                showCustomAlert("Ubusabe Bwoherejwe!", "Ubusabe bwageze kuri Admin nka Pending!");
-                document.getElementById('momo-wizard').classList.add('hidden');
-                document.getElementById('custom-deposit-input').value = "";
+            let payload = { amount: activeCustomDeposit, senderName: name };
+
+            await fetch(`${FIREBASE_URL}users/${cleanKey}/pendingDeposit.json`, {
+                method: 'PUT',
+                body: JSON.stringify(payload)
             });
+
+            showCustomAlert("Ubusabe Bwoherejwe!", "Ubusabe bwageze kuri Admin nka Pending!");
+            document.getElementById('momo-wizard').classList.add('hidden');
+            document.getElementById('custom-deposit-input').value = "";
+            fetchAllData();
         }
 
         function renderUserSharesStore() {
@@ -544,19 +548,22 @@
                             <h4 class="font-bold text-white text-xs flex justify-between"><span>${s.packageName}</span> <span class="text-blue-400">${s.cost.toLocaleString()} F</span></h4>
                             <p class="text-[10px] text-green-400 font-bold">Inyungu: +${s.profit.toLocaleString()} FRW / 24h</p>
                         </div>
-                        <div class="p-3 pt-0"><button onclick="window.buyShare(${s.cost}, ${s.profit})" class="w-full bg-blue-600 text-white text-[11px] py-1">Gura</button></div>
+                        <div class="p-3 pt-0"><button type="button" onclick="window.buyShare(${s.cost}, ${s.profit})" class="w-full bg-blue-600 text-white text-[11px] py-1 cursor-pointer">Gura</button></div>
                     </div>`;
             });
         }
 
-        window.buyShare = function(cost, profit) {
+        window.buyShare = async function(cost, profit) {
             if (currentUser.depositBal >= cost) {
                 let cleanKey = currentUser.contact.replace(/[^a-zA-Z0-9]/g, "_");
-                db.ref('users/' + cleanKey).update({
-                    depositBal: currentUser.depositBal - cost,
-                    earningsBal: currentUser.earningsBal + profit
-                });
-                showCustomAlert("Bikunze!", "Uguze umugabane!");
+                let newDep = currentUser.depositBal - cost;
+                let newEarn = currentUser.earningsBal + profit;
+
+                await fetch(`${FIREBASE_URL}users/${cleanKey}/depositBal.json`, { method: 'PUT', body: JSON.stringify(newDep) });
+                await fetch(`${FIREBASE_URL}users/${cleanKey}/earningsBal.json`, { method: 'PUT', body: JSON.stringify(newEarn) });
+
+                showCustomAlert("Bikunze!", "Uguze umugabane neza!");
+                fetchAllData();
             } else { showCustomAlert("Amakosa", "Nta amafaranga ahagije kuri Deposit balance!"); }
         }
 
@@ -564,14 +571,14 @@
             const tbody = document.getElementById('admin-users-table'); tbody.innerHTML = '';
             globalUsersArray.forEach((u) => {
                 let cleanId = u.contact.replace(/[^a-zA-Z0-9]/g, "_");
-                let regAction = u.approved ? `<span class="text-green-400 font-bold">Approved</span>` : `<button onclick="window.approveReg('${cleanId}')" class="bg-blue-600 text-white px-2 py-0.5 rounded text-[10px]">Approve (6K)</button>`;
+                let regAction = u.approved ? `<span class="text-green-400 font-bold">Approved</span>` : `<button type="button" onclick="window.approveReg('${cleanId}')" class="bg-blue-600 text-white px-2 py-0.5 rounded text-[10px] cursor-pointer">Approve</button>`;
                 
                 let depositAction = u.pendingDeposit ? `
                     <div class="bg-slate-950 p-1 rounded border border-yellow-600/40">
                         <span class="text-yellow-400 font-bold animate-pulse">[PENDING]</span><br>
                         <span class="text-green-400 font-bold">${u.pendingDeposit.amount}F</span><br>
                         <span class="text-[9px] text-gray-400">By: ${u.pendingDeposit.senderName}</span><br>
-                        <button onclick="window.approveDep('${cleanId}', ${u.pendingDeposit.amount})" class="bg-green-600 text-white px-1 text-[9px] rounded w-full mt-1">Confirm</button>
+                        <button type="button" onclick="window.approveDep('${cleanId}', ${u.pendingDeposit.amount})" class="bg-green-600 text-white px-1 text-[9px] rounded w-full mt-1 cursor-pointer">Confirm</button>
                     </div>` : '<span class="text-gray-600">Nta busabe</span>';
                 
                 tbody.innerHTML += `
@@ -579,35 +586,38 @@
                         <td class="p-3 font-bold text-white">${u.name}</td>
                         <td class="p-3">${u.contact}</td>
                         <td class="p-3 font-mono">${u.password}</td>
-                        <td class="p-3">${regAction} <br><span class="text-[9px] text-gray-500">Name: ${u.momoName}</span></td>
+                        <td class="p-3">${regAction} <br><span class="text-[9px] text-gray-500">Momo: ${u.momoName}</span></td>
                         <td class="p-3">${depositAction}</td>
-                        <td class="p-3">${u.pendingWithdraw ? `${u.pendingWithdraw.amount}F` : 'Nta'}</td>
                         <td class="p-3 font-bold text-green-400">${u.earningsBal.toLocaleString()} F</td>
                         <td class="p-3 font-bold text-blue-400">${u.depositBal.toLocaleString()} F</td>
                     </tr>`;
             });
         }
 
-        window.approveReg = function(cleanId) { db.ref('users/' + cleanId).update({ approved: true }); }
-        window.approveDep = function(cleanId, amt) {
-            db.ref('users/' + cleanId).once('value').then((snapshot) => {
-                let currentDepositBal = snapshot.val().depositBal || 0;
-                db.ref('users/' + cleanId).update({
-                    depositBal: currentDepositBal + amt,
-                    pendingDeposit: null
-                });
-            });
+        window.approveReg = async function(cleanId) { 
+            await fetch(`${FIREBASE_URL}users/${cleanId}/approved.json`, { method: 'PUT', body: JSON.stringify(true) });
+            fetchAllData();
+        }
+        
+        window.approveDep = async function(cleanId, amt) {
+            let found = globalUsersArray.find(x => x.id === cleanId);
+            let current = found ? (found.depositBal || 0) : 0;
+            let target = current + amt;
+
+            await fetch(`${FIREBASE_URL}users/${cleanId}/depositBal.json`, { method: 'PUT', body: JSON.stringify(target) });
+            await fetch(`${FIREBASE_URL}users/${cleanId}/pendingDeposit.json`, { method: 'PUT', body: JSON.stringify(null) });
+            fetchAllData();
         }
 
-        window.updateAdminVideos = function() {
+        window.updateAdminVideos = async function() {
             let l1 = document.getElementById('admin-vid-link-1').value.trim();
             let l2 = document.getElementById('admin-vid-link-2').value.trim();
-            db.ref('settings/videos').set([l1, l2]).then(() => {
-                showCustomAlert("Yavuguruwe!", "Zagiye kuri Cloud!");
-            });
+            await fetch(`${FIREBASE_URL}settings/videos.json`, { method: 'PUT', body: JSON.stringify([l1, l2]) });
+            showCustomAlert("Yavuguruwe!", "Zagiye kuri Cloud!");
+            fetchAllData();
         }
 
-        window.uploadNewSharePackage = function() {
+        window.uploadNewSharePackage = async function() {
             let name = document.getElementById('admin-share-name').value.trim();
             let cost = parseInt(document.getElementById('admin-share-cost').value);
             let profit = parseInt(document.getElementById('admin-share-profit').value);
@@ -615,9 +625,11 @@ let img = document.getElementById('admin-share-img').value.trim() || 'https://im
 
             if(!name || !cost || !profit) { showCustomAlert("Amakosa", "Shyiramo amakuru yose!"); return; }
             let key = name.replace(/[^a-zA-Z0-9]/g, "_");
-            db.ref('shares/' + key).set({ packageName: name, cost: cost, profit: profit, img: img }).then(() => {
-                showCustomAlert("Uploaded!", "Umugabane washyizwe kuri Cloud!");
-            });
+            let payload = { packageName: name, cost: cost, profit: profit, img: img };
+            
+            await fetch(`${FIREBASE_URL}shares/${key}.json`, { method: 'PUT', body: JSON.stringify(payload) });
+            showCustomAlert("Uploaded!", "Umugabane washyizwe kuri Cloud!");
+            fetchAllData();
         }
 
         window.switchTab = function(tab) {
