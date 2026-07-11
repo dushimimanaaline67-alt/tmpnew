@@ -3,8 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TMP NEW - Firebase Online Realtime V8</title>
+    <title>TMP NEW - Firebase Realtime Fix</title>
+    <!-- Tailwind CSS -->
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <!-- FontAwesome for Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         body { background-color: #020617; color: #f8fafc; font-family: 'Segoe UI', system-ui, sans-serif; }
@@ -16,6 +18,7 @@
 </head>
 <body>
 
+    <!-- ==================== CUSTOM ALERT NOTIFICATION MODAL ==================== -->
     <div id="custom-alert" class="hidden fixed inset-0 bg-black/85 backdrop-blur-md z-[100] flex items-center justify-center p-4">
         <div class="bg-slate-900 border border-blue-500/40 rounded-2xl max-w-sm w-full p-6 text-center space-y-4 shadow-2xl">
             <div id="alert-icon-box" class="w-14 h-14 bg-blue-950/60 border border-blue-500/50 rounded-full flex items-center justify-center mx-auto text-blue-400 text-2xl">
@@ -27,6 +30,7 @@
         </div>
     </div>
 
+    <!-- ==================== LIVE INTERACTIVE 7-QUESTION SURVEY MODAL ==================== -->
     <div id="survey-questions-modal" class="hidden fixed inset-0 bg-black/90 backdrop-blur-lg z-[95] flex items-center justify-center p-4 overflow-y-auto">
         <div class="bg-slate-900 border border-purple-500/40 rounded-2xl max-w-lg w-full p-6 space-y-4 my-8 max-h-[90vh] overflow-y-auto shadow-2xl">
             <div class="border-b border-gray-800 pb-2 flex justify-between items-center">
@@ -81,6 +85,7 @@
         </div>
     </div>
 
+    <!-- ==================== YOUTUBE VIDEO FIT MODAL ==================== -->
     <div id="video-popup-modal" class="hidden fixed inset-0 bg-black/95 backdrop-blur-2xl z-[90] flex items-center justify-center p-3">
         <div class="bg-slate-950 border border-blue-600/40 rounded-2xl max-w-2xl w-full p-3 space-y-3 shadow-2xl overflow-hidden">
             <div class="flex justify-between items-center border-b border-gray-800 pb-2 px-1">
@@ -94,6 +99,7 @@
         </div>
     </div>
 
+    <!-- HEADER -->
     <header class="bg-gradient-blue border-b border-blue-900/40 py-6 px-4 text-center relative">
         <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
             <div class="text-left">
@@ -108,6 +114,7 @@
 
     <main class="max-w-7xl mx-auto p-4 space-y-8">
 
+        <!-- ADMIN PASSWORD VERIFICATION -->
         <div id="admin-modal" class="hidden fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
             <div class="bg-slate-950 border border-red-900/50 rounded-2xl max-w-md w-full p-6 shadow-2xl">
                 <div class="text-center space-y-2">
@@ -124,6 +131,7 @@
             </div>
         </div>
 
+        <!-- ==================== MAIN ADMIN CONTROL PANEL ==================== -->
         <section id="admin-section" class="hidden bg-slate-900 border-2 border-red-900/30 rounded-2xl p-6 shadow-2xl space-y-6">
             <div class="flex items-center justify-between border-b border-gray-800 pb-4">
                 <h2 class="text-xl font-black text-red-500 flex items-center gap-2"><i class="fa-solid fa-chart-line"></i> TMP CLOUD REALTIME PANEL</h2>
@@ -149,6 +157,7 @@
                 </div>
             </div>
             
+            <!-- ADMIN USERS TABLE DATABASE DISPLAY -->
             <div class="overflow-x-auto pt-2">
                 <table class="w-full text-left border-collapse text-[11px]">
                     <thead>
@@ -168,7 +177,9 @@
             </div>
         </section>
 
+        <!-- ==================== AUTHENTICATION (REG & LOGIN) ==================== -->
         <section id="auth-section" class="grid md:grid-cols-2 gap-6">
+            <!-- Kwiyandikisha -->
             <div class="bg-slate-900 border border-blue-900/30 rounded-2xl p-6 shadow-xl space-y-4">
                 <h3 class="text-lg font-bold text-white flex items-center gap-2"><i class="fa-solid fa-user-plus text-blue-500"></i> Fungura Konti nshya</h3>
                 
@@ -189,6 +200,7 @@
                 </form>
             </div>
 
+            <!-- Login Box -->
             <div class="space-y-4 flex flex-col justify-start">
                 <div class="bg-slate-900 border border-blue-900/30 rounded-2xl p-6 shadow-lg">
                     <h3 class="text-md font-bold text-white mb-3 flex items-center gap-2"><i class="fa-solid fa-right-to-bracket text-blue-500"></i> Injira (Login)</h3>
@@ -201,6 +213,7 @@
             </div>
         </section>
 
+        <!-- ==================== USER DASHBOARD ==================== -->
         <section id="user-dashboard" class="hidden space-y-6">
             <div class="bg-slate-900 border border-gray-800 rounded-2xl p-6 flex flex-col md:flex-row items-center justify-between gap-4">
                 <div><h2 class="text-xl font-bold text-white">Murakaza neza, <span id="user-display-name" class="text-blue-400"></span>!</h2></div>
@@ -211,6 +224,7 @@
                 </div>
             </div>
 
+            <!-- TABS -->
             <div class="flex gap-2 border-b border-gray-800 overflow-x-auto">
                 <button onclick="window.switchTab('tasks')" id="btn-tab-tasks" class="tab-btn px-4 py-2 text-xs font-bold border-b-2 border-blue-500 text-blue-400 cursor-pointer">TASKS (40)</button>
                 <button onclick="window.switchTab('surveys')" id="btn-tab-surveys" class="tab-btn px-4 py-2 text-xs font-bold text-gray-400 border-b-2 border-transparent cursor-pointer">SURVEYS (30)</button>
@@ -218,10 +232,12 @@
                 <button onclick="window.switchTab('withdraw')" id="btn-tab-withdraw" class="tab-btn px-4 py-2 text-xs font-bold text-gray-400 border-b-2 border-transparent cursor-pointer">WITHDRAW</button>
             </div>
 
+            <!-- TAB 1: VIDEOS -->
             <div id="tab-tasks" class="space-y-4">
                 <div id="tasks-grid-container" class="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-5 gap-4"></div>
             </div>
 
+            <!-- TAB 2: SURVEYS -->
             <div id="tab-surveys" class="hidden space-y-4">
                 <div class="bg-slate-900 border border-purple-900/30 p-4 rounded-xl">
                     <h3 class="text-sm font-bold text-purple-400"><i class="fa-solid fa-square-poll-vertical mr-2"></i> Daily Survey Engine (Kora 1 ku munsi, Ibibazo 7)</h3>
@@ -230,6 +246,7 @@
                 <div id="surveys-grid-container" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4"></div>
             </div>
 
+            <!-- TAB 3: INVESTMENTS WITH CUSTOM DEPOSIT INPUT -->
             <div id="tab-invest" class="hidden space-y-8">
                 <div class="bg-slate-900 border border-blue-900/30 rounded-2xl p-6 space-y-4">
                     <h3 class="text-md font-bold text-blue-400"><i class="fa-solid fa-circle-dollar-to-slot mr-2"></i> Custom Deposit Amount Mode</h3>
@@ -261,6 +278,7 @@
                 </div>
             </div>
 
+            <!-- TAB 4: WITHDRAWAL -->
             <div id="tab-withdraw" class="hidden">
                 <div class="bg-slate-900 border border-gray-800 rounded-2xl p-6 max-w-xl mx-auto space-y-4">
                     <h3 class="text-md font-bold text-green-400 flex items-center gap-2"><i class="fa-solid fa-money-bill-transfer"></i> Kura Amafaranga</h3>
@@ -275,10 +293,11 @@
         </section>
     </main>
 
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-app.js";
-        import { getDatabase, ref, set, get, update, onValue } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-database.js";
+    <!-- Firebase App n'izindi mbuga mu buryo bu kora hose -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
 
+    <script>
         const firebaseConfig = {
             apiKey: "AIzaSyATdI2IbvP_3eY0y0yQIhs2CtjZjyP3H0g",
             authDomain: "kailoimage.firebaseapp.com",
@@ -289,68 +308,65 @@
             measurementId: "G-CZN5E1TLBJ"
         };
 
-        const app = initializeApp(firebaseConfig);
-        const db = getDatabase(app);
+        // Gufungura urubuga rwa Firebase live
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.database();
 
         let currentUser = null;
         let activeCustomDeposit = 0;
         let globalUsersArray = [];
 
-        // Kureba niba hari user uri muri session
-        window.addEventListener('DOMContentLoaded', () => {
-            let sessionUser = localStorage.getItem('tmp_firebase_uid');
+        // Kureba live data ziva kuri Firebase
+        db.ref('users').on('value', (snapshot) => {
+            const data = snapshot.val();
+            globalUsersArray = [];
+            if(data) {
+                for(let key in data) {
+                    globalUsersArray.push({ id: key, ...data[key] });
+                }
+            }
             
-            // Kureba live data ziva kuri Firebase
-            onValue(ref(db, 'users'), (snapshot) => {
-                const data = snapshot.val();
-                globalUsersArray = [];
-                if(data) {
-                    for(let key in data) {
-                        globalUsersArray.push({ id: key, ...data[key] });
-                    }
-                }
-                
-                if(sessionUser) {
-                    let found = globalUsersArray.find(x => x.contact === sessionUser);
-                    if(found) { currentUser = found; }
-                }
-                checkUserSession();
-                renderAdminTable();
-            });
-
-            // Kureba video links zikora live
-            onValue(ref(db, 'settings/videos'), (snapshot) => {
-                let vids = snapshot.val() || ["https://www.youtube.com/embed/dQw4w9WgXcQ", "https://www.youtube.com/embed/dQw4w9WgXcQ"];
-                document.getElementById('admin-vid-link-1').value = vids[0];
-                document.getElementById('admin-vid-link-2').value = vids[1];
-                window.cachedVideos = vids;
-                if(currentUser) buildFortyTasks();
-            });
-
-            // Kureba imigabane iri online
-            onValue(ref(db, 'shares'), (snapshot) => {
-                let data = snapshot.val();
-                let sharesList = [];
-                if(data) {
-                    for(let k in data) sharesList.push(data[k]);
-                } else {
-                    sharesList = [
-                        { packageName: 'Pack Small Farm', cost: 500, profit: 50, img: 'https://images.unsplash.com/photo-1516467508483-a7212febe31a?w=400' },
-                        { packageName: 'Pack Chickens', cost: 1000, profit: 100, img: 'https://images.unsplash.com/photo-1546445317-29f4545e9d53?w=400' }
-                    ];
-                }
-                window.cachedShares = sharesList;
-                if(currentUser) renderUserSharesStore();
-            });
+            let sessionUser = localStorage.getItem('tmp_firebase_uid');
+            if(sessionUser) {
+                let found = globalUsersArray.find(x => x.contact === sessionUser);
+                if(found) { currentUser = found; }
+            }
+            checkUserSession();
+            renderAdminTable();
         });
 
-        // Register Account kuri Firebase
-        document.getElementById('register-form').addEventListener('submit', async (e) => {
+        // Kureba video links zikora live
+        db.ref('settings/videos').on('value', (snapshot) => {
+            let vids = snapshot.val() || ["https://www.youtube.com/embed/dQw4w9WgXcQ", "https://www.youtube.com/embed/dQw4w9WgXcQ"];
+            document.getElementById('admin-vid-link-1').value = vids[0];
+            document.getElementById('admin-vid-link-2').value = vids[1];
+            window.cachedVideos = vids;
+            if(currentUser) buildFortyTasks();
+        });
+
+        // Kureba imigabane iri online
+        db.ref('shares').on('value', (snapshot) => {
+            let data = snapshot.val();
+            let sharesList = [];
+            if(data) {
+                for(let k in data) sharesList.push(data[k]);
+            } else {
+                sharesList = [
+                    { packageName: 'Pack Small Farm', cost: 500, profit: 50, img: 'https://images.unsplash.com/photo-1516467508483-a7212febe31a?w=400' },
+                    { packageName: 'Pack Chickens', cost: 1000, profit: 100, img: 'https://images.unsplash.com/photo-1546445317-29f4545e9d53?w=400' }
+                ];
+            }
+            window.cachedShares = sharesList;
+            if(currentUser) renderUserSharesStore();
+        });
+
+        // Kwiyandikisha
+        document.getElementById('register-form').addEventListener('submit', function(e) {
             e.preventDefault();
             let contact = document.getElementById('reg-contact').value.trim();
             
             let alreadyExists = globalUsersArray.find(u => u.contact === contact);
-            if(alreadyExists) { showCustomAlert("Amakosa", "Iyi telefone isanzwe ifite konti kuri Online store."); return; }
+            if(alreadyExists) { showCustomAlert("Amakosa", "Iyi telefone isanzwe ifite konti."); return; }
 
             let cleanKey = contact.replace(/[^a-zA-Z0-9]/g, "_");
             let newUser = {
@@ -362,13 +378,18 @@
                 pendingDeposit: null, pendingWithdraw: null, lastSurveyDay: ""
             };
 
-            await set(ref(db, 'users/' + cleanKey), newUser);
-            showCustomAlert("Byagenze neza!", "Banza wishyure 6,000 FRW kuri MoMo hanyuma utegereze kwemezwa na Admin Online!");
-            document.getElementById('register-form').reset();
+            db.ref('users/' + cleanKey).set(newUser, function(error) {
+                if(error) {
+                    showCustomAlert("Amakosa", "Birenze ubushozi bwa network! Koresha Live Server.");
+                } else {
+                    showCustomAlert("Byagenze neza!", "Ubusabe bwageze kuri Admin Panel! Banza wishyure 6,000 FRW.");
+                    document.getElementById('register-form').reset();
+                }
+            });
         });
 
         // Login Account
-        document.getElementById('login-form').addEventListener('submit', (e) => {
+        document.getElementById('login-form').addEventListener('submit', function(e) {
             e.preventDefault();
             let contact = document.getElementById('login-contact').value.trim();
             let pass = document.getElementById('login-pass').value;
@@ -384,7 +405,6 @@
 
         function checkUserSession() {
             if (currentUser) {
-                // Kuvugurura data ya nyuma ivuye kuri server live
                 let latest = globalUsersArray.find(x => x.contact === currentUser.contact);
                 if(latest) currentUser = latest;
 
@@ -410,7 +430,7 @@
                     container.innerHTML += `
                         <div class="bg-slate-950/60 border border-gray-950 p-3 rounded-xl flex flex-col items-center justify-center opacity-30">
                             <div class="text-xs text-gray-500">${i}</div>
-                            <button onclick="showCustomAlert('Iz\\'uyu munsi zashize', 'Video z\\'uyu munsi dushyizemo zazindutse zarangiye! Garuka ejo.')" class="w-full bg-slate-900 text-[9px] py-1 rounded mt-2 cursor-pointer text-gray-400">Reba</button>
+                            <button onclick="showCustomAlert('Iz\\'uyu munsi zashize', 'Garuka ejo.')" class="w-full bg-slate-900 text-[9px] py-1 rounded mt-2 text-gray-400">Reba</button>
                         </div>`;
                 } else {
                     let targetLink = (i === 1) ? vids[0] : vids[1];
@@ -434,7 +454,7 @@
             document.getElementById('video-popup-modal').classList.remove('hidden');
 
             let count = 7;
-            let timer = setInterval(async () => {
+            let timer = setInterval(() => {
                 count--;
                 document.getElementById('popup-timer-text').innerText = `Tegereza ${count}s`;
                 if(count <= 0) {
@@ -442,12 +462,11 @@
                     document.getElementById('video-popup-modal').classList.add('hidden');
                     wrapper.innerHTML = "";
                     
-                    // Guha user amafaranga kuri Firebase
                     let cleanKey = currentUser.contact.replace(/[^a-zA-Z0-9]/g, "_");
-                    await update(ref(db, 'users/' + cleanKey), {
+                    db.ref('users/' + cleanKey).update({
                         earningsBal: currentUser.earningsBal + 200
                     });
-                    showCustomAlert("Yarangiye!", "Uhawe +200 FRW neza kuri Firebase Database!");
+                    showCustomAlert("Yarangiye!", "Uhawe +200 FRW kuri Database!");
                 }
             }, 1000);
         }
@@ -464,8 +483,8 @@
                             <span class="text-xs font-bold text-purple-400">Survey #${i}</span>
                             <span class="text-[10px] text-green-400 font-bold">+500 FRW</span>
                         </div>
-                        <p class="text-[11px] text-gray-400">Isesengura ririmo ibibazo 7 bijyanye n'ibyari bikurimo n'ibyo ukunda.</p>
-                        <button onclick="window.openSurveyModal('${i}')" ${isLocked ? 'disabled class="w-full bg-gray-800 text-gray-500 text-xs py-1.5 rounded-lg cursor-not-allowed"' : 'class="w-full bg-purple-600 text-white text-xs font-bold py-1.5 rounded-lg cursor-pointer"'}>
+                        <p class="text-[11px] text-gray-400">Isesengura ririmo ibibazo 7 bijyanye n'ibyari bikurimo.</p>
+                        <button onclick="window.openSurveyModal('${i}')" ${isLocked ? 'disabled class="w-full bg-gray-800 text-gray-500 text-xs py-1.5 rounded-lg"' : 'class="w-full bg-purple-600 text-white text-xs font-bold py-1.5 rounded-lg"'}>
                             ${isLocked ? 'Tegereza Ejo' : 'Tangira Survey'}
                         </button>
                     </div>`;
@@ -477,39 +496,38 @@
             document.getElementById('survey-questions-modal').classList.remove('hidden');
         }
 
-        document.getElementById('survey-questions-form').addEventListener('submit', async (e) => {
+        document.getElementById('survey-questions-form').addEventListener('submit', function(e) {
             e.preventDefault();
             let currentDayString = new Date().toDateString();
             let cleanKey = currentUser.contact.replace(/[^a-zA-Z0-9]/g, "_");
 
-            await update(ref(db, 'users/' + cleanKey), {
+            db.ref('users/' + cleanKey).update({
                 earningsBal: currentUser.earningsBal + 500,
                 lastSurveyDay: currentDayString
             });
             
             document.getElementById('survey-questions-modal').classList.add('hidden');
             document.getElementById('survey-questions-form').reset();
-            showCustomAlert("Byagenze neza!", "Urangije ibibazo 7 neza, data yagiye kuri Firebase (+500 FRW)!");
+            showCustomAlert("Byagenze neza!", "Urangije isesengura (+500 FRW)!");
         });
 
         window.triggerCustomDepositWizard = function() {
             let val = parseInt(document.getElementById('custom-deposit-input').value);
-            if(!val || val <= 0) { showCustomAlert("Amakosa", "Shyiramo umubare w'amafaranga ukwiriye!"); return; }
+            if(!val || val <= 0) { showCustomAlert("Amakosa", "Shyiramo umubare ukwiriye!"); return; }
             activeCustomDeposit = val;
             document.getElementById('wizard-amount-display').innerText = val.toLocaleString();
             document.getElementById('momo-wizard').classList.remove('hidden');
         }
 
-        // Kohereza Ubusabe (Pending Deposit) kuri Firebase
         window.submitDepositRequest = function() {
             let name = document.getElementById('momo-sender-name').value.trim();
-            if(!name) { showCustomAlert("Amakosa", "Andika amazina ya MoMo yakoreshejwe!"); return; }
+            if(!name) { showCustomAlert("Amakosa", "Andika amazina ya MoMo!"); return; }
             
             let cleanKey = currentUser.contact.replace(/[^a-zA-Z0-9]/g, "_");
-            update(ref(db, 'users/' + cleanKey), {
+            db.ref('users/' + cleanKey).update({
                 pendingDeposit: { amount: activeCustomDeposit, senderName: name }
             }).then(() => {
-                showCustomAlert("Ubusabe Bwoherejwe!", "Ubusabe bwageze kuri Firebase Online, admin arabubona nka Pending!");
+                showCustomAlert("Ubusabe Bwoherejwe!", "Ubusabe bwageze kuri Admin nka Pending!");
                 document.getElementById('momo-wizard').classList.add('hidden');
                 document.getElementById('custom-deposit-input').value = "";
             });
@@ -526,36 +544,34 @@
                             <h4 class="font-bold text-white text-xs flex justify-between"><span>${s.packageName}</span> <span class="text-blue-400">${s.cost.toLocaleString()} F</span></h4>
                             <p class="text-[10px] text-green-400 font-bold">Inyungu: +${s.profit.toLocaleString()} FRW / 24h</p>
                         </div>
-                        <div class="p-3 pt-0"><button onclick="window.buyShare(${s.cost}, ${s.profit})" class="w-full bg-blue-600 text-white text-[11px] py-1 rounded cursor-pointer">Gura</button></div>
+                        <div class="p-3 pt-0"><button onclick="window.buyShare(${s.cost}, ${s.profit})" class="w-full bg-blue-600 text-white text-[11px] py-1">Gura</button></div>
                     </div>`;
             });
         }
 
-        window.buyShare = async function(cost, profit) {
+        window.buyShare = function(cost, profit) {
             if (currentUser.depositBal >= cost) {
                 let cleanKey = currentUser.contact.replace(/[^a-zA-Z0-9]/g, "_");
-                await update(ref(db, 'users/' + cleanKey), {
+                db.ref('users/' + cleanKey).update({
                     depositBal: currentUser.depositBal - cost,
                     earningsBal: currentUser.earningsBal + profit
                 });
-                showCustomAlert("Bikunze!", "Uguze umugabane kuri Online Store!");
+                showCustomAlert("Bikunze!", "Uguze umugabane!");
             } else { showCustomAlert("Amakosa", "Nta amafaranga ahagije kuri Deposit balance!"); }
         }
 
-        // Guhindura ishusho y'imbonerahamwe ya Admin n'ama-Actions (Confirm/Approve)
         function renderAdminTable() {
             const tbody = document.getElementById('admin-users-table'); tbody.innerHTML = '';
             globalUsersArray.forEach((u) => {
                 let cleanId = u.contact.replace(/[^a-zA-Z0-9]/g, "_");
-                let regAction = u.approved ? `<span class="text-green-400 font-bold">Approved</span>` : `<button onclick="window.approveReg('${cleanId}')" class="bg-blue-600 text-white px-2 py-0.5 rounded text-[10px] cursor-pointer">Approve (6K)</button>`;
+                let regAction = u.approved ? `<span class="text-green-400 font-bold">Approved</span>` : `<button onclick="window.approveReg('${cleanId}')" class="bg-blue-600 text-white px-2 py-0.5 rounded text-[10px]">Approve (6K)</button>`;
                 
-                // Pending Tracker kuri Admin Panel
                 let depositAction = u.pendingDeposit ? `
                     <div class="bg-slate-950 p-1 rounded border border-yellow-600/40">
                         <span class="text-yellow-400 font-bold animate-pulse">[PENDING]</span><br>
                         <span class="text-green-400 font-bold">${u.pendingDeposit.amount}F</span><br>
                         <span class="text-[9px] text-gray-400">By: ${u.pendingDeposit.senderName}</span><br>
-                        <button onclick="window.approveDep('${cleanId}', ${u.pendingDeposit.amount})" class="bg-green-600 text-white px-1 text-[9px] rounded w-full mt-1 cursor-pointer">Confirm</button>
+                        <button onclick="window.approveDep('${cleanId}', ${u.pendingDeposit.amount})" class="bg-green-600 text-white px-1 text-[9px] rounded w-full mt-1">Confirm</button>
                     </div>` : '<span class="text-gray-600">Nta busabe</span>';
                 
                 tbody.innerHTML += `
@@ -565,30 +581,29 @@
                         <td class="p-3 font-mono">${u.password}</td>
                         <td class="p-3">${regAction} <br><span class="text-[9px] text-gray-500">Name: ${u.momoName}</span></td>
                         <td class="p-3">${depositAction}</td>
-                        <td class="p-3">${u.pendingWithdraw ? `${u.pendingWithdraw.amount}F <button onclick="window.payWith('${cleanId}')" class="bg-amber-600 px-1 rounded text-white">Pay</button>` : 'Nta'}</td>
+                        <td class="p-3">${u.pendingWithdraw ? `${u.pendingWithdraw.amount}F` : 'Nta'}</td>
                         <td class="p-3 font-bold text-green-400">${u.earningsBal.toLocaleString()} F</td>
                         <td class="p-3 font-bold text-blue-400">${u.depositBal.toLocaleString()} F</td>
                     </tr>`;
             });
         }
 
-        window.approveReg = function(cleanId) { update(ref(db, 'users/' + cleanId), { approved: true }); }
+        window.approveReg = function(cleanId) { db.ref('users/' + cleanId).update({ approved: true }); }
         window.approveDep = function(cleanId, amt) {
-            get(ref(db, 'users/' + cleanId)).then((snapshot) => {
+            db.ref('users/' + cleanId).once('value').then((snapshot) => {
                 let currentDepositBal = snapshot.val().depositBal || 0;
-                update(ref(db, 'users/' + cleanId), {
+                db.ref('users/' + cleanId).update({
                     depositBal: currentDepositBal + amt,
                     pendingDeposit: null
                 });
             });
         }
-        window.payWith = function(cleanId) { update(ref(db, 'users/' + cleanId), { pendingWithdraw: null }); }
 
         window.updateAdminVideos = function() {
             let l1 = document.getElementById('admin-vid-link-1').value.trim();
             let l2 = document.getElementById('admin-vid-link-2').value.trim();
-            set(ref(db, 'settings/videos'), [l1, l2]).then(() => {
-                showCustomAlert("Yavuguruwe!", "Video links zagiye kuri Firebase Cloud!");
+            db.ref('settings/videos').set([l1, l2]).then(() => {
+                showCustomAlert("Yavuguruwe!", "Zagiye kuri Cloud!");
             });
         }
 
@@ -600,8 +615,8 @@ let img = document.getElementById('admin-share-img').value.trim() || 'https://im
 
             if(!name || !cost || !profit) { showCustomAlert("Amakosa", "Shyiramo amakuru yose!"); return; }
             let key = name.replace(/[^a-zA-Z0-9]/g, "_");
-            set(ref(db, 'shares/' + key), { packageName: name, cost: cost, profit: profit, img: img }).then(() => {
-                showCustomAlert("Uploaded!", "Umugabane mushya washyizwe kuri Cloud Database!");
+            db.ref('shares/' + key).set({ packageName: name, cost: cost, profit: profit, img: img }).then(() => {
+                showCustomAlert("Uploaded!", "Umugabane washyizwe kuri Cloud!");
             });
         }
 
@@ -619,9 +634,7 @@ let img = document.getElementById('admin-share-img').value.trim() || 'https://im
         }
 
         window.logout = function() { localStorage.removeItem('tmp_firebase_uid'); currentUser = null; checkUserSession(); }
-    </script>
 
-    <script>
         function showCustomAlert(title, message) {
             document.getElementById('alert-title').innerText = title;
             document.getElementById('alert-message').innerText = message;
