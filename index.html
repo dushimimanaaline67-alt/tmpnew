@@ -358,10 +358,27 @@
             if(!u) { showCustomAlert("Amakosa", "Telefone cyangwa password ntabwo ari zo!"); return; }
             if(!u.approved) { showCustomAlert("Tegereza", "Konti yawe ntabwo iremezwa na Admin. Banza wishyure 6K!"); return; }
 
-            currentUser = u;
-            localStorage.setItem('tmp_v7_logged_user_uid', currentUser.contact);
-            checkUserSession();
-        });
+         currentUser = u;
+
+            // 1. Siba cyangwa ugire comment iyi ya localStorage niba utagishaka ko iguma muri browser gusa
+            // localStorage.setItem('tmp_v7_logged_user_uid', currentUser.contact);
+
+            // 2. Shyiraho iyi code ya Firebase yo kubika umu-user kuri Internet
+            // 'abakoresha' ni izina rya tablo (Folder) izabika abantu bose binjiye kuri Firebase
+            set(ref(database, 'abakoresha/' + currentUser.contact), {
+                uid: currentUser.contact,
+                izina: currentUser.name || "Umu-User", // Niba afite izina rishirwemo
+                status: "online",
+                igihe_cy_okwinjira: Date.now()
+            })
+            .then(() => {
+                console.log("Umu-user yamaze kubikwa kuri Firebase neza!");
+                // Hanyuma ugahamagara ya function yawe isanzwe
+                checkUserSession();
+            })
+            .catch((error) => {
+                console.error("Hari ikibazo kibaye mu kubika kuri Firebase:", error);
+            });
 
         function checkUserSession() {
             if (currentUser) {
@@ -583,6 +600,7 @@ let img = document.getElementById('admin-share-img').value.trim() || 'https://im
     </script>
     <script type="module">
   // Import the functions you need from the SDKs you need
+  import { getDatabase, ref, set } from "https://www.gstatic.com/firebasejs/9.x.x/firebase-database.js";
   import { initializeApp } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-app.js";
   import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-analytics.js";
   // TODO: Add SDKs for Firebase products that you want to use
