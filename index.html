@@ -179,7 +179,7 @@
                     <h4 class="text-yellow-500 font-bold text-xs flex items-center gap-2"><i class="fa-solid fa-wallet"></i> BANZA WISHYURE (15,000 FRW):</h4>
                     <p class="text-[11px] text-gray-400">Kugira ngo konti yawe yemerwe neza, kanda kuri telefone yawe:</p>
                     <div class="bg-slate-900 p-2 rounded border border-gray-800 font-mono text-xs text-green-400 font-bold">
-                        *182*8*1*1593548# name:marceline-> Shyiramo 15,000 FRW.
+                        *182*8*1*1593548# -> Shyiramo 15,000 FRW.
                     </div>
                 </div>
 
@@ -358,27 +358,10 @@
             if(!u) { showCustomAlert("Amakosa", "Telefone cyangwa password ntabwo ari zo!"); return; }
             if(!u.approved) { showCustomAlert("Tegereza", "Konti yawe ntabwo iremezwa na Admin. Banza wishyure 6K!"); return; }
 
-         currentUser = u;
-
-            // 1. Siba cyangwa ugire comment iyi ya localStorage niba utagishaka ko iguma muri browser gusa
-            // localStorage.setItem('tmp_v7_logged_user_uid', currentUser.contact);
-
-            // 2. Shyiraho iyi code ya Firebase yo kubika umu-user kuri Internet
-            // 'abakoresha' ni izina rya tablo (Folder) izabika abantu bose binjiye kuri Firebase
-            set(ref(database, 'abakoresha/' + currentUser.contact), {
-                uid: currentUser.contact,
-                izina: currentUser.name || "Umu-User", // Niba afite izina rishirwemo
-                status: "online",
-                igihe_cy_okwinjira: Date.now()
-            })
-            .then(() => {
-                console.log("Umu-user yamaze kubikwa kuri Firebase neza!");
-                // Hanyuma ugahamagara ya function yawe isanzwe
-                checkUserSession();
-            })
-            .catch((error) => {
-                console.error("Hari ikibazo kibaye mu kubika kuri Firebase:", error);
-            });
+            currentUser = u;
+            localStorage.setItem('tmp_v7_logged_user_uid', currentUser.contact);
+            checkUserSession();
+        });
 
         function checkUserSession() {
             if (currentUser) {
@@ -598,29 +581,5 @@ let img = document.getElementById('admin-share-img').value.trim() || 'https://im
 
         function logout() { localStorage.removeItem('tmp_v7_logged_user_uid'); currentUser = null; checkUserSession(); }
     </script>
-    <script type="module">
-  // Import the functions you need from the SDKs you need
-  import { getDatabase, ref, set } from "https://www.gstatic.com/firebasejs/9.x.x/firebase-database.js";
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-app.js";
-  import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-analytics.js";
-  // TODO: Add SDKs for Firebase products that you want to use
-  // https://firebase.google.com/docs/web/setup#available-libraries
-
-  // Your web app's Firebase configuration
-  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-  const firebaseConfig = {
-    apiKey: "AIzaSyATdI2IbvP_3eY0y0yQIhs2CtjZjyP3H0g",
-    authDomain: "kailoimage.firebaseapp.com",
-    projectId: "kailoimage",
-    storageBucket: "kailoimage.firebasestorage.app",
-    messagingSenderId: "737217663699",
-    appId: "1:737217663699:web:3c240365395c20909d3a26",
-    measurementId: "G-E9JC9JBVDR"
-  };
-
-  // Initialize Firebase
-  const app = initializeApp(firebaseConfig);
-  const analytics = getAnalytics(app);
-</script>
 </body>
 </html>
